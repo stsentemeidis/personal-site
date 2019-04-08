@@ -6,7 +6,7 @@ navbar:
     - text: "Recommendation Engine"
       href: index.html
     - text: "Python Project Part 1"
-      href: 1_EDA__Baseline.html
+      href: 1. EDA + Baseline.html
     - text: "Python Project Part 2"
       href: 2_Data_Preparation_(Feature+Engineering).html
     - text: "Python Project Part 3"
