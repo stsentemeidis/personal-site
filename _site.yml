@@ -7,3 +7,5 @@ navbar:
       href: index.html
     - text: "About Me"
       href: about.html
+    - text: "EDA_baseline"
+      href: "EDA_Baseline.html"
