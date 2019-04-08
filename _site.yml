@@ -8,4 +8,4 @@ navbar:
     - text: "About Me"
       href: about.html
     - text: "EDA_baseline"
-      href: "EDA_Baseline.html"
+      href: EDA_Baseline.html
