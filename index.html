@@ -187,6 +187,9 @@ $(document).ready(function () {
 <li>
   <a href="about.html">About Me</a>
 </li>
+<li>
+  <a href="1_EDA__Baseline.html">EDA_baseline</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -960,7 +963,7 @@ skin_type_oily
 <tbody>
 <tr>
 <td style="text-align:right;">
-17
+81
 </td>
 <td style="text-align:left;">
 P38217
@@ -985,16 +988,68 @@ P38217
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:left;">
+P38217
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+37
+</td>
+<td style="text-align:left;">
+P38217
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:left;">
+P38217
+</td>
 <td style="text-align:right;">
 3
 </td>
 <td style="text-align:left;">
-P38217
-</td>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:left;">
 0
 </td>
 <td style="text-align:left;">
@@ -1012,59 +1067,7 @@ P38217
 </tr>
 <tr>
 <td style="text-align:right;">
-40
-</td>
-<td style="text-align:left;">
-P38217
-</td>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:left;">
-0
-</td>
-<td style="text-align:left;">
-1
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-16
-</td>
-<td style="text-align:left;">
-P38217
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:left;">
-0
-</td>
-<td style="text-align:left;">
-1
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-62
+38
 </td>
 <td style="text-align:left;">
 P38217
@@ -1090,7 +1093,7 @@ P38217
 </tr>
 <tr>
 <td style="text-align:right;">
-36
+100
 </td>
 <td style="text-align:left;">
 P38217
@@ -1122,12 +1125,12 @@ P38217
 <h1>New Real Rating Matrix</h1>
 <p>The matrix shows users in rows and products in columns. A numeric value corresponding to a particular user and product implies how the product was rated by a particular user. For example, <strong>user 1</strong> gave a rating of <strong>4</strong> to <strong>product P38217</strong>.</p>
 <pre><code>## 5 x 5 sparse Matrix of class &quot;dgCMatrix&quot;
-##    P38217 P382204 P382292 P382353 P382354
-## 1       5       2       3       3       5
-## 10      .       5       .       4       5
-## 11      4       .       3       .       5
-## 12      5       .       5       5       1
-## 13      4       5       .       2       5</code></pre>
+##     P38217 P382204 P382292 P382353 P382354
+## 1        .       .       .       .       5
+## 10       .       5       .       5       .
+## 100      5       4       .       .       5
+## 11       5       4       5       .       5
+## 12       3       3       5       5       5</code></pre>
 </div>
 <div id="number-of-ratings-per-user-with-fake-data" class="section level1">
 <h1>Number of Ratings per User with Fake Data</h1>
@@ -1213,22 +1216,22 @@ applyMyAlgorithm &lt;- function(data) {
 <pre class="r"><code>trainMyAlgorithm(train, sephora_reviews_edited, skin=&quot;skin_type_oily&quot;)
 
 head(applyMyAlgorithm(known))</code></pre>
-<pre><code>## $`10`
+<pre><code>## $`12`
 ## [1] &quot;P38217&quot; &quot;P38217&quot;
 ## 
-## $`11`
+## $`24`
 ## [1] &quot;P382354&quot; &quot;P382354&quot;
 ## 
-## $`15`
+## $`28`
 ## [1] &quot;P38217&quot; &quot;P38217&quot;
 ## 
-## $`16`
-## [1] &quot;P382354&quot; &quot;P382354&quot;
+## $`3`
+## [1] &quot;P38217&quot; &quot;P38217&quot;
 ## 
-## $`17`
-## [1] &quot;P382354&quot; &quot;P382354&quot;
+## $`31`
+## [1] &quot;P38217&quot; &quot;P38217&quot;
 ## 
-## $`21`
+## $`32`
 ## [1] &quot;P38217&quot; &quot;P38217&quot;</code></pre>
 </div>
 <div id="second-recommendation-system" class="section level1">
@@ -1254,22 +1257,22 @@ applyMyAlgorithm &lt;- function(data) {
 <pre class="r"><code>trainMyAlgorithm(train, sephora_reviews_edited, skin=&quot;skin_type_combination&quot;)
 
 head(applyMyAlgorithm(known))</code></pre>
-<pre><code>## $`10`
+<pre><code>## $`12`
 ## character(0)
 ## 
-## $`11`
-## [1] &quot;P38217&quot; &quot;P38217&quot;
+## $`24`
+## [1] &quot;P384342&quot;
 ## 
-## $`15`
+## $`28`
 ## character(0)
 ## 
-## $`16`
-## [1] &quot;P38217&quot; &quot;P38217&quot;
+## $`3`
+## character(0)
 ## 
-## $`17`
-## [1] &quot;P38217&quot; &quot;P38217&quot;
+## $`31`
+## character(0)
 ## 
-## $`21`
+## $`32`
 ## character(0)</code></pre>
 </div>
 <div id="feedback-loop" class="section level1">
