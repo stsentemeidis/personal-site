@@ -1,8 +1,6 @@
 ---
-title: "Furqan's Website"
+title: "Recommendation Engine"
 ---
-
-# Recommendation Engine
 
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}

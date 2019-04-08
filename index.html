@@ -11,7 +11,7 @@
 
 
 
-<title>Furqan’s Website</title>
+<title>Recommendation Engine</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -199,14 +199,11 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Furqan’s Website</h1>
+<h1 class="title toc-ignore">Recommendation Engine</h1>
 
 </div>
 
 
-<div id="recommendation-engine" class="section level1">
-<h1>Recommendation Engine</h1>
-</div>
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
 <p>Selecting a product that fits your needs is a tiring process. The process is more demanding with the evergrowing range of products. Makeup is a category that does not only have a big range of products, but also requires a consumer to select the right product according to skin type. It is not uncommon for relatives or friends to buy makeup as a gift for their loved ones; buying such gifts is a difficult process because of wide range of products and the added complexity of selecting a product that matches skin-type of the loved ones. In such a situation, a recommender system that recommends products as per skin type can take burden off the purchaser.</p>
@@ -963,7 +960,7 @@ skin_type_oily
 <tbody>
 <tr>
 <td style="text-align:right;">
-88
+17
 </td>
 <td style="text-align:left;">
 P38217
@@ -989,7 +986,7 @@ P38217
 </tr>
 <tr>
 <td style="text-align:right;">
-98
+3
 </td>
 <td style="text-align:left;">
 P38217
@@ -1015,7 +1012,7 @@ P38217
 </tr>
 <tr>
 <td style="text-align:right;">
-42
+40
 </td>
 <td style="text-align:left;">
 P38217
@@ -1041,7 +1038,7 @@ P38217
 </tr>
 <tr>
 <td style="text-align:right;">
-36
+16
 </td>
 <td style="text-align:left;">
 P38217
@@ -1067,7 +1064,7 @@ P38217
 </tr>
 <tr>
 <td style="text-align:right;">
-24
+62
 </td>
 <td style="text-align:left;">
 P38217
@@ -1093,7 +1090,7 @@ P38217
 </tr>
 <tr>
 <td style="text-align:right;">
-22
+36
 </td>
 <td style="text-align:left;">
 P38217
@@ -1125,12 +1122,12 @@ P38217
 <h1>New Real Rating Matrix</h1>
 <p>The matrix shows users in rows and products in columns. A numeric value corresponding to a particular user and product implies how the product was rated by a particular user. For example, <strong>user 1</strong> gave a rating of <strong>4</strong> to <strong>product P38217</strong>.</p>
 <pre><code>## 5 x 5 sparse Matrix of class &quot;dgCMatrix&quot;
-##     P38217 P382204 P382292 P382353 P382354
-## 1        5       5       .       5       5
-## 10       5       5       5       .       5
-## 100      .       5       .       .       4
-## 11       5       2       5       4       5
-## 12       .       .       .       .       .</code></pre>
+##    P38217 P382204 P382292 P382353 P382354
+## 1       5       2       3       3       5
+## 10      .       5       .       4       5
+## 11      4       .       3       .       5
+## 12      5       .       5       5       1
+## 13      4       5       .       2       5</code></pre>
 </div>
 <div id="number-of-ratings-per-user-with-fake-data" class="section level1">
 <h1>Number of Ratings per User with Fake Data</h1>
@@ -1216,23 +1213,23 @@ applyMyAlgorithm &lt;- function(data) {
 <pre class="r"><code>trainMyAlgorithm(train, sephora_reviews_edited, skin=&quot;skin_type_oily&quot;)
 
 head(applyMyAlgorithm(known))</code></pre>
-<pre><code>## $`18`
-## [1] &quot;P382354&quot; &quot;P382354&quot;
-## 
-## $`19`
+<pre><code>## $`10`
 ## [1] &quot;P38217&quot; &quot;P38217&quot;
 ## 
-## $`2`
-## [1] &quot;P38217&quot; &quot;P38217&quot;
-## 
-## $`25`
+## $`11`
 ## [1] &quot;P382354&quot; &quot;P382354&quot;
 ## 
-## $`27`
-## [1] &quot;P382355&quot; &quot;P382355&quot;
+## $`15`
+## [1] &quot;P38217&quot; &quot;P38217&quot;
 ## 
-## $`28`
-## [1] &quot;P382355&quot; &quot;P382355&quot;</code></pre>
+## $`16`
+## [1] &quot;P382354&quot; &quot;P382354&quot;
+## 
+## $`17`
+## [1] &quot;P382354&quot; &quot;P382354&quot;
+## 
+## $`21`
+## [1] &quot;P38217&quot; &quot;P38217&quot;</code></pre>
 </div>
 <div id="second-recommendation-system" class="section level1">
 <h1>Second Recommendation System</h1>
@@ -1257,23 +1254,23 @@ applyMyAlgorithm &lt;- function(data) {
 <pre class="r"><code>trainMyAlgorithm(train, sephora_reviews_edited, skin=&quot;skin_type_combination&quot;)
 
 head(applyMyAlgorithm(known))</code></pre>
-<pre><code>## $`18`
-## [1] &quot;P384342&quot;
-## 
-## $`19`
+<pre><code>## $`10`
 ## character(0)
 ## 
-## $`2`
-## character(0)
-## 
-## $`25`
-## [1] &quot;P384342&quot;
-## 
-## $`27`
+## $`11`
 ## [1] &quot;P38217&quot; &quot;P38217&quot;
 ## 
-## $`28`
-## [1] &quot;P38217&quot; &quot;P38217&quot;</code></pre>
+## $`15`
+## character(0)
+## 
+## $`16`
+## [1] &quot;P38217&quot; &quot;P38217&quot;
+## 
+## $`17`
+## [1] &quot;P38217&quot; &quot;P38217&quot;
+## 
+## $`21`
+## character(0)</code></pre>
 </div>
 <div id="feedback-loop" class="section level1">
 <h1>Feedback Loop</h1>
