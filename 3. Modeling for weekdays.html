@@ -11780,6 +11780,16 @@ div#notebook {
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Holidays and Working days were modelled separately and later their predictions were combined. Initially it was decided to go with the same approach for both datasets, which is that a simple model is applied with a gridsearch to get the best possible parameters and see which parameters behave better. However, a further step was taken to improve the score. Stacking ensemble was used to understand errors of the first models and build on them. Expected results were obtained for the working days dataset but not for the holidays.</p>
+<p>In order to stack ensemble, third quarter of year 2 was left aside and level 0 models were trained on the one year and a half. Predictions for third quarter were obtained from level 0 models and joined with explanatory variables. Thereafter, an ensemble  was trained on third quarter in order to predict for the fourth quarter (test set).</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[3]:</div>
@@ -11862,7 +11872,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Dividing-the-dataset-in-one-year-and-a-half-and-Q3-iun-order-to-be-able-to-train-level-0-AND-PREDICT">Dividing the dataset in one year and a half and Q3 iun order to be able to train level 0 AND PREDICT<a class="anchor-link" href="#Dividing-the-dataset-in-one-year-and-a-half-and-Q3-iun-order-to-be-able-to-train-level-0-AND-PREDICT">&#182;</a></h4>
+<h4 id="Dividing-the-dataset-in-one-year-and-a-half-and-Q3-in-order-to-be-able-to-train-level-0-Models-AND-PREDICT">Dividing the dataset in one year and a half and Q3 in order to be able to train level 0 Models AND PREDICT<a class="anchor-link" href="#Dividing-the-dataset-in-one-year-and-a-half-and-Q3-in-order-to-be-able-to-train-level-0-Models-AND-PREDICT">&#182;</a></h4>
 </div>
 </div>
 </div>
@@ -11895,7 +11905,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Starting with the simplest model on Q3 , even though the score is high here this is the prediction for Q3 (FALL) , as we saw in the EDA FALL SPRING AND SUMMER behaved in the same way but winter was a bit different so we can say that the model learned from 5 similar season and we would not expect the same score for Q4 ( winter ) . This clearly an indicator that the feature created previously have helped our model to learn more about the target</p>
+<p>Initially, predictions for Q3 2012 were computed. The score is bound to be better than the score of Q4 2012 because bikers' pattern in winter is very different compared to other seasons. The EDA shows that fall, spring, and summer behaved similarly but pattern in winter is different. Therefore, it is reasonable to say that the model learned from 5 seasons with similar patterns interms of bikers' traffic.</p>
 
 </div>
 </div>
@@ -11955,10 +11965,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>After trying linear regressor we tried random forest with a large grid search in order to make sure that we are using the best possible parameters for the model 
-Our expectations were to have a higher score then the linear model but we did not, This could be due to the fact that there are alot of linearly correlated target to the data such as the new weather variable created and the 
-mean_per_hour which reflects a direct linear correlation of the past target in the same hour.
-Random forest acts best when the data is clearly partitione in groups such as the Rush_Hour and Is_Daylight that clearly differentiate the different target values</p>
+<p>After trying linear regressor, random forest was tried with a comprehensive grid search in order to make sure that the best possible parameters are used. It was expected that Random Forest would produce a higher score than linear model, but that was not the case. This means that there is a linear relationship between the data at hand and the target, and that the assumption that a random forest would always give a better result is not true specially in a regression problem.</p>
 
 </div>
 </div>
@@ -12024,10 +12031,8 @@ Random forest acts best when the data is clearly partitione in groups such as th
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>After trying the basic model we went into the more exotic ones , here the KNN claculate the difference between the differernt point and tries to classsif them 
-in groups and then compare these groups to the target and trie to get teh cclosest estimated number.
-The bases of trying this model and why it seemed like it would make sense to us is because in our EDA it looked like there are multiple waya to cluster the differnret hours 
-either by weather , hr ,season or even day</p>
+<p>A simple implementation of KNN regression is to calculate the average of the numerical target of the K nearest neighbors. 
+This model was tried because EDA showed that there are multiple ways to cluster different hours, for instance, by weather, hour, season and day.</p>
 
 </div>
 </div>
@@ -12078,16 +12083,6 @@ either by weather , hr ,season or even day</p>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Support-Vector-regressor-w/-GS-for-Holidays-for-2011--&gt;-2012Q3">Support Vector regressor w/ GS for <em>Holidays</em> for 2011 -&gt; 2012Q3<a class="anchor-link" href="#Support-Vector-regressor-w/-GS-for-Holidays-for-2011--&gt;-2012Q3">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>This algorithm is known for it complexity and the amount of time it takes oto run but we wanted to give it a try , so instead of using a wide range forthe gridsearch we just used one of the basic kernels  and diffeerent values for C and gamma 
-the resulat were Bad , this maybe due to choice of parameters.</p>
-
 </div>
 </div>
 </div>
@@ -12143,8 +12138,7 @@ the resulat were Bad , this maybe due to choice of parameters.</p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>XGBoost is known for winning most of the kaggle competitions so we thought it was worth a shot , specialy since we know that this algorithm work on the errors of a tree algorithm and improves on it
- the Grid Search used wasa wide enough in terms of parameter and gave back the best scores between all the algortihms</p>
+<p>XGBoost works on errors of a tree algorithm and improves on them. A comprehensive Grid Search  produced the best score compared to all the other models</p>
 
 </div>
 </div>
@@ -12240,8 +12234,7 @@ the resulat were Bad , this maybe due to choice of parameters.</p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>A level further was taken and the predictions of the top 3 previous algortihms ( Random Forest , Linear Regression , and XGBoost ) on Q3 were attached to the 
-initial Q3 data for training a new algorithm on them</p>
+<p>In Level 1 modelling, the predictions of top 3 level 0 algortihms (Random Forest, Linear Regression, and XGBoost) on Q3 were attached to Q3 data for training an algorithm</p>
 
 </div>
 </div>
@@ -12283,7 +12276,7 @@ initial Q3 data for training a new algorithm on them</p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Taking the original Q4 data and adding to it the predictions from the 3 algortihms chosen</p>
+<p>Q4 data is added to predictions of Level 0 models for Q4 2012</p>
 
 </div>
 </div>
@@ -12331,7 +12324,7 @@ initial Q3 data for training a new algorithm on them</p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h6 id="Here-are-the-scores-of-the-trained-algorithms-on-the-Q4-data-in-order-to-be-able-to-compare-our-initial-results-to-the-stacking-ones-later-on">Here are the scores of the trained algorithms on the Q4 data in order to be able to compare our initial results to the stacking ones later on<a class="anchor-link" href="#Here-are-the-scores-of-the-trained-algorithms-on-the-Q4-data-in-order-to-be-able-to-compare-our-initial-results-to-the-stacking-ones-later-on">&#182;</a></h6>
+<h6 id="Scores-of-Level-0-algorithms-for-Q4-2012">Scores of Level 0 algorithms for Q4 2012<a class="anchor-link" href="#Scores-of-Level-0-algorithms-for-Q4-2012">&#182;</a></h6>
 </div>
 </div>
 </div>
@@ -12565,7 +12558,7 @@ initial Q3 data for training a new algorithm on them</p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>According to the scores above  XGBoost will be retrained on the 3rd Quarter with the predictions of the best 3 models and will be tested on Q4  with the predictions on Q4</p>
+<p>Level 1 XGBoost is trained on Q3 2012 data with predictions of the three best level 0 models. Level 1 XGBoost will predict for Q4 2012</p>
 
 </div>
 </div>
@@ -12655,34 +12648,27 @@ initial Q3 data for training a new algorithm on them</p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>This is the final score for the prediction of Q4 workingdays : 0.9022288970285075</p>
-<p>Things that could have increased the score more :</p>
+<p>This is the final score for the predictions of Q4 2012 workingdays : 0.9022288970285075</p>
+<p>Steps that could have further increased the score:</p>
 
-<pre><code>- CHoosing the right amount of features for every algorithms , but this was very computationaly heavy , since trying an RFECV with the already time ocnsuming algorithms would take too long
-- Increasing the gridsearch or maybe using Bayesian Optimization 
+<pre><code>- Choosing the right amount of features for every algorithms, however it was computationaly heavy.
+- Increasing the gridsearch or using Bayesian Optimization 
 </code></pre>
-<p>Things we thought would increase our score that we tried but did not work :</p>
+<p>Steps that were thought to increase the score but did not work:</p>
 
-<pre><code>- Running the level 1 algorithm only on the predictions without the initial data 
-- Doing stacking in a way that would use the prediction of the TimeSeriesCross Validation and then retrain the level 0 algorithm with more data 
-(it did not work because the prediction in each fold used was being outputed from a different "Train" of the same algorithm , and the prediction for test data would only be predicted by the training of one of the folds, 
-this means that what the level1 algorithm is trying to learn from the predicted values would be different in each fold )</code></pre>
+<pre><code>- Running level 1 algorithms only on the predictions without the initial data 
+- Stacking in a way that would use predictions of TimeSeriesCross Validation and then retrain level 0 algorithms with more data      </code></pre>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[38]:</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
 <div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Save-Predictions-for-Weekdays">Save Predictions for Weekdays<a class="anchor-link" href="#Save-Predictions-for-Weekdays">&#182;</a></h3>
 </div>
 </div>
-</div>
-
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
@@ -12696,58 +12682,6 @@ this means that what the level1 algorithm is trying to learn from the predicted 
 <span class="n">work_predictions</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">full_wd</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">dates</span><span class="p">,</span><span class="n">work_predictions</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">full_wd</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;pred_working.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 
 </div>

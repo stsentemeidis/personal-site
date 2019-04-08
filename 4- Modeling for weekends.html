@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>2. Data Preparation (Feature Engineering)</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>4- Modeling for weekends</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 <style type="text/css">
@@ -11771,31 +11771,78 @@ div#notebook {
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
 
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[64]:</div>
 <div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Washington-DC-Biking-data-|-Hourly-Bike-Count-Prediction">Washington DC Biking data | Hourly Bike Count Prediction<a class="anchor-link" href="#Washington-DC-Biking-data-|-Hourly-Bike-Count-Prediction">&#182;</a></h1><h2 id="2.-Data-Preparation-&amp;-Feature-Engineering">2. Data Preparation &amp; Feature Engineering<a class="anchor-link" href="#2.-Data-Preparation-&amp;-Feature-Engineering">&#182;</a></h2><p>MBD O-1-5</p>
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Imports</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+
+
+<span class="kn">from</span> <span class="nn">My_Functions</span> <span class="k">import</span> <span class="o">*</span> 
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">defaultdict</span>
+
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="k">import</span> <span class="n">preprocessing</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">r2_score</span><span class="p">,</span><span class="n">roc_curve</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">train_test_split</span><span class="p">,</span> <span class="n">KFold</span><span class="p">,</span><span class="n">StratifiedKFold</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">cross_val_score</span><span class="p">,</span> <span class="n">cross_val_predict</span><span class="p">,</span><span class="n">validation_curve</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="k">import</span> <span class="n">RandomForestRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn.kernel_ridge</span> <span class="k">import</span> <span class="n">KernelRidge</span>
+<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="k">import</span> <span class="n">SVR</span>
+<span class="kn">import</span> <span class="nn">xgboost</span> <span class="k">as</span> <span class="nn">xgb</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="k">import</span> <span class="n">SGDRegressor</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="k">import</span> <span class="n">make_pipeline</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="k">import</span> <span class="n">LabelBinarizer</span><span class="p">,</span> <span class="n">RobustScaler</span><span class="p">,</span><span class="n">PolynomialFeatures</span>
+<span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="k">import</span> <span class="n">KNeighborsRegressor</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">stats</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="k">import</span> <span class="n">skew</span><span class="p">,</span> <span class="n">boxcox_normmax</span>
+<span class="kn">from</span> <span class="nn">scipy.special</span> <span class="k">import</span> <span class="n">boxcox1p</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib.ticker</span> <span class="k">import</span> <span class="n">MaxNLocator</span> <span class="p">,</span> <span class="n">MultipleLocator</span>
+<span class="c1">##from matplotlib import XAxis</span>
+
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="k">import</span> <span class="n">metrics</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="k">import</span> <span class="n">OneHotEncoder</span><span class="p">,</span> <span class="n">LabelEncoder</span><span class="p">,</span> <span class="n">LabelBinarizer</span><span class="p">,</span><span class="n">StandardScaler</span>
+<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="k">import</span> <span class="n">make_pipeline</span>
+<span class="kn">from</span> <span class="nn">sklearn.feature_selection</span> <span class="k">import</span> <span class="n">RFE</span><span class="p">,</span> <span class="n">RFECV</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="k">import</span> <span class="n">LogisticRegression</span><span class="p">,</span><span class="n">LinearRegression</span><span class="p">,</span> <span class="n">OrthogonalMatchingPursuit</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">train_test_split</span> <span class="p">,</span> <span class="n">TimeSeriesSplit</span><span class="p">,</span> <span class="n">GridSearchCV</span> 
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">classification_report</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">roc_auc_score</span><span class="p">,</span> <span class="n">roc_curve</span><span class="p">,</span> <span class="n">accuracy_score</span>
+<span class="kn">from</span> <span class="nn">matplotlib.gridspec</span> <span class="k">import</span> <span class="n">GridSpec</span>
+<span class="kn">import</span> <span class="nn">plotly.tools</span> <span class="k">as</span> <span class="nn">tls</span>
+<span class="kn">import</span> <span class="nn">plotly</span>
+<span class="n">plotly</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">set_credentials_file</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s1">&#39;Furqan92&#39;</span><span class="p">,</span> <span class="n">api_key</span><span class="o">=</span><span class="s1">&#39;22DfVN5rFRg79OYygN5h&#39;</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">plotly.plotly</span> <span class="k">as</span> <span class="nn">py</span>
+<span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="k">import</span> <span class="n">PCA</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">DataFrame</span> 
+<span class="kn">from</span> <span class="nn">sklearn.exceptions</span> <span class="k">import</span> <span class="n">ConvergenceWarning</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+<span class="n">random_seed</span> <span class="o">=</span> <span class="mi">504</span>
+<span class="n">tscv</span> <span class="o">=</span> <span class="n">TimeSeriesSplit</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Notebook-preperation">Notebook preperation<a class="anchor-link" href="#Notebook-preperation">&#182;</a></h3>
-</div>
-</div>
+
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[65]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
-
-<span class="c1"># To automatically reload the function file </span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># To automatically reload the function file </span>
 <span class="o">%</span><span class="k">load_ext</span> autoreload
 <span class="o">%</span><span class="k">aimport</span> My_Functions
 <span class="o">%</span><span class="k">run</span> My_Functions.py
@@ -11812,8 +11859,9 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Data Import</span>
-<span class="n">hourly_raw_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;hour.csv&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Load datasets</span>
+<span class="n">we_h</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./weekends1_holi_data_prepared.csv&#39;</span><span class="p">)</span>
+<span class="n">we_h</span><span class="p">[</span><span class="s1">&#39;dteday&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">we_h</span><span class="p">[</span><span class="s1">&#39;dteday&#39;</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -11825,60 +11873,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Feature-Engineering">Feature Engineering<a class="anchor-link" href="#Feature-Engineering">&#182;</a></h1>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Converting-dteday-to-date">Converting <code>dteday</code> to date<a class="anchor-link" href="#Converting-dteday-to-date">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">hourly_raw_data</span><span class="p">[</span><span class="s1">&#39;dteday&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">hourly_raw_data</span><span class="p">[</span><span class="s1">&#39;dteday&#39;</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Add-isDaylight-and--isNoon-for-hourly-data">Add <code>isDaylight</code> and  <code>isNoon</code> for hourly data<a class="anchor-link" href="#Add-isDaylight-and--isNoon-for-hourly-data">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">hourly_raw_data</span><span class="p">[</span><span class="s1">&#39;isDaylight&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span>
-<span class="n">hourly_raw_data</span><span class="p">[</span><span class="s1">&#39;isNoon&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span>
-
-<span class="n">hourly_raw_data</span> <span class="o">=</span> <span class="n">hourly_raw_data</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">isDaylight</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Adding-the-temp-atemp-windspeed-hum-relative-to-the-last-7-days-value">Adding the temp atemp windspeed hum relative to the last 7 days value<a class="anchor-link" href="#Adding-the-temp-atemp-windspeed-hum-relative-to-the-last-7-days-value">&#182;</a></h3>
+<h2 id="Subset-2011--&gt;-2012Q3-Data">Subset 2011 -&gt; 2012Q3 Data<a class="anchor-link" href="#Subset-2011--&gt;-2012Q3-Data">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -11887,8 +11882,11 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">to_relative</span>  <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;temp&#39;</span><span class="p">,</span> <span class="s1">&#39;atemp&#39;</span><span class="p">,</span> <span class="s1">&#39;hum&#39;</span><span class="p">,</span><span class="s1">&#39;windspeed&#39;</span><span class="p">]</span>
-<span class="n">hourly_raw_data</span> <span class="o">=</span> <span class="n">relative_values</span><span class="p">(</span><span class="n">hourly_raw_data</span><span class="p">,</span> <span class="n">to_relative</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">X_Train_2011_2012Q2</span> <span class="o">=</span> <span class="n">we_h</span><span class="p">[</span><span class="n">we_h</span><span class="p">[</span><span class="s1">&#39;dteday&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2012</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;cnt&#39;</span><span class="p">,</span><span class="s1">&#39;casual&#39;</span><span class="p">,</span><span class="s1">&#39;registered&#39;</span><span class="p">,</span><span class="s1">&#39;dteday&#39;</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="c1">## NONE OF THst_EM IN DATA</span>
+<span class="n">Y_cnt_train_2011_2012Q2</span> <span class="o">=</span><span class="n">we_h</span><span class="p">[</span><span class="s1">&#39;cnt&#39;</span><span class="p">][</span><span class="n">we_h</span><span class="p">[</span><span class="s1">&#39;dteday&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2012</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span>
+
+<span class="n">X_Test_2012Q3</span> <span class="o">=</span> <span class="n">we_h</span><span class="p">[(</span><span class="n">we_h</span><span class="p">[</span><span class="s1">&#39;dteday&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2012</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">we_h</span><span class="p">[</span><span class="s1">&#39;dteday&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2012</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))]</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;cnt&#39;</span><span class="p">,</span><span class="s1">&#39;casual&#39;</span><span class="p">,</span><span class="s1">&#39;registered&#39;</span><span class="p">,</span><span class="s1">&#39;dteday&#39;</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="c1">## NONE OF THEM IN DATA</span>
+<span class="n">Y_cnt_test_2012Q3</span> <span class="o">=</span><span class="n">we_h</span><span class="p">[</span><span class="s1">&#39;cnt&#39;</span><span class="p">][(</span><span class="n">we_h</span><span class="p">[</span><span class="s1">&#39;dteday&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2012</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">we_h</span><span class="p">[</span><span class="s1">&#39;dteday&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2012</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))]</span>
 </pre></div>
 
 </div>
@@ -11900,7 +11898,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Adding-RushHour-High-&amp;----RushHour-Med--&amp;---RushHour-Low">Adding <code>RushHour-High</code> &amp;    <code>RushHour-Med</code>  &amp;   <code>RushHour-Low</code><a class="anchor-link" href="#Adding-RushHour-High-&amp;----RushHour-Med--&amp;---RushHour-Low">&#182;</a></h3>
+<h2 id="Linear-regression-w/-GS-for-Weekends-for-2011--&gt;-2012Q3">Linear regression w/ GS for <em>Weekends</em> for 2011 -&gt; 2012Q3<a class="anchor-link" href="#Linear-regression-w/-GS-for-Weekends-for-2011--&gt;-2012Q3">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -11909,14 +11907,40 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">hourly_raw_data</span><span class="p">[</span><span class="s1">&#39;RushHour-High&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">hourly_raw_data</span><span class="p">[</span><span class="s1">&#39;RushHour-Med&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">hourly_raw_data</span><span class="p">[</span><span class="s1">&#39;RushHour-Low&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">##Linear Regression</span>
+<span class="n">lm_parameters</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;fit_intercept&#39;</span><span class="p">:[</span><span class="kc">True</span><span class="p">,</span><span class="kc">False</span><span class="p">],</span> <span class="s1">&#39;normalize&#39;</span><span class="p">:[</span><span class="kc">True</span><span class="p">,</span><span class="kc">False</span><span class="p">],</span> <span class="s1">&#39;copy_X&#39;</span><span class="p">:[</span><span class="kc">True</span><span class="p">]}</span>
 
-<span class="n">hourly_raw_data</span> <span class="o">=</span> <span class="n">hourly_raw_data</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">addRushHourFlags</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">lm</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">LinearRegression</span><span class="p">(),</span>
+                                 <span class="n">param_grid</span><span class="o">=</span><span class="n">lm_parameters</span><span class="p">,</span>
+                                 <span class="n">cv</span><span class="o">=</span><span class="n">tscv</span><span class="p">,</span><span class="n">return_train_score</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">lm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_Train_2011_2012Q2</span><span class="p">,</span> <span class="n">Y_cnt_train_2011_2012Q2</span><span class="p">)</span>
+<span class="c1"># lm.cv_results_</span>
+<span class="n">lm_predictions</span> <span class="o">=</span> <span class="n">lm</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_Test_2012Q3</span><span class="p">)</span>
+<span class="n">lm</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_Test_2012Q3</span><span class="p">,</span> <span class="n">Y_cnt_test_2012Q3</span><span class="p">)</span>
 </pre></div>
 
 </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[6]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.833325057136417</pre>
+</div>
+
+</div>
+
 </div>
 </div>
 
@@ -11925,7 +11949,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Splitting-Data">Splitting Data<a class="anchor-link" href="#Splitting-Data">&#182;</a></h2>
+<h2 id="Random-Forest-w/-GS-for-weekends-for-2011--&gt;-2012Q3">Random Forest w/ GS for <em>weekends</em> for 2011 -&gt; 2012Q3<a class="anchor-link" href="#Random-Forest-w/-GS-for-weekends-for-2011--&gt;-2012Q3">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -11934,11 +11958,45 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">workingdays</span> <span class="o">=</span> <span class="n">num_name</span><span class="p">(</span><span class="n">hourly_raw_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">hourly_raw_data</span><span class="p">[</span><span class="s1">&#39;workingday&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="mi">1</span><span class="p">])</span> <span class="p">)])</span>
-<span class="n">holidays</span> <span class="o">=</span> <span class="n">num_name</span><span class="p">(</span><span class="n">hourly_raw_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="o">~</span><span class="n">hourly_raw_data</span><span class="p">[</span><span class="s1">&#39;workingday&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="mi">1</span><span class="p">])</span> <span class="p">)])</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">RF_parameters</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">30</span> <span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="mi">100</span><span class="p">],</span>
+                                             <span class="s1">&#39;bootstrap&#39;</span><span class="p">:</span> <span class="p">[</span><span class="kc">True</span> <span class="p">,</span><span class="kc">False</span><span class="p">],</span>
+                                             <span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">80</span><span class="p">,</span> <span class="mi">100</span> <span class="p">,</span><span class="mi">120</span> <span class="p">],</span>
+                                             <span class="s1">&#39;max_features&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;log2&#39;</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">32</span> <span class="p">],</span>
+                                             <span class="s1">&#39;min_samples_leaf&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span>  <span class="mi">5</span> <span class="p">,</span> <span class="mi">8</span><span class="p">],</span>
+                                             <span class="s1">&#39;min_samples_split&#39;</span><span class="p">:</span> <span class="p">[</span> <span class="mi">10</span> <span class="p">,</span> <span class="mi">8</span> <span class="p">,</span> <span class="mi">15</span> <span class="p">,</span> <span class="mi">18</span><span class="p">],</span>
+                                            <span class="s1">&#39;random_state&#39;</span><span class="p">:[</span><span class="n">random_seed</span><span class="p">],</span>
+                                            <span class="s1">&#39;criterion&#39;</span><span class="p">:[</span><span class="s1">&#39;mse&#39;</span><span class="p">]}</span>
+<span class="n">rf</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">RandomForestRegressor</span><span class="p">(),</span>
+                                 <span class="n">param_grid</span><span class="o">=</span> <span class="n">RF_parameters</span><span class="p">,</span>
+                                 <span class="n">cv</span><span class="o">=</span><span class="n">tscv</span><span class="p">)</span>
+
+<span class="n">rf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_Train_2011_2012Q2</span><span class="p">,</span> <span class="n">Y_cnt_train_2011_2012Q2</span><span class="p">)</span>
+<span class="c1"># rf.cv_results_</span>
+<span class="n">rf_predictions</span> <span class="o">=</span> <span class="n">lm</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_Test_2012Q3</span><span class="p">)</span>
+<span class="n">rf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_Test_2012Q3</span><span class="p">,</span> <span class="n">Y_cnt_test_2012Q3</span><span class="p">)</span>
 </pre></div>
 
 </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[7]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.8570826212022598</pre>
+</div>
+
+</div>
+
 </div>
 </div>
 
@@ -11947,7 +12005,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Mean-of-the-past-3-weeks-during-the-same-hour">Mean of the past 3 weeks during the same hour<a class="anchor-link" href="#Mean-of-the-past-3-weeks-during-the-same-hour">&#182;</a></h2>
+<h2 id="K-Nearest-Neighbors-regressor-w/-GS-for-Weekends-for-2011--&gt;-2012Q3">K Nearest Neighbors regressor w/ GS for <em>Weekends</em> for 2011 -&gt; 2012Q3<a class="anchor-link" href="#K-Nearest-Neighbors-regressor-w/-GS-for-Weekends-for-2011--&gt;-2012Q3">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -11956,8 +12014,64 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">workingdays</span><span class="o">=</span> <span class="n">mean_per_hour_3weeks</span><span class="p">(</span><span class="n">workingdays</span><span class="p">)</span>
-<span class="n">holidays</span> <span class="o">=</span> <span class="n">mean_per_hour_3weeks</span><span class="p">(</span><span class="n">holidays</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">knn_parameters</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;n_neighbors&#39;</span><span class="p">:[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span> <span class="mi">30</span> <span class="p">],</span><span class="s1">&#39;weights&#39;</span><span class="p">:[</span><span class="s1">&#39;uniform&#39;</span><span class="p">],</span> <span class="s1">&#39;algorithm&#39;</span><span class="p">:[</span><span class="s1">&#39;auto&#39;</span><span class="p">],</span><span class="s1">&#39;leaf_size&#39;</span><span class="p">:[</span><span class="mi">5</span> <span class="p">,</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span><span class="mi">30</span><span class="p">],</span>
+                  <span class="s1">&#39;p&#39;</span><span class="p">:[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span><span class="s1">&#39;metric&#39;</span><span class="p">:[</span><span class="s1">&#39;minkowski&#39;</span><span class="p">]}</span>
+<span class="n">knn</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">KNeighborsRegressor</span><span class="p">(),</span>
+                                 <span class="n">param_grid</span><span class="o">=</span><span class="n">knn_parameters</span><span class="p">,</span>
+                                 <span class="n">cv</span><span class="o">=</span><span class="n">tscv</span><span class="p">,</span><span class="n">return_train_score</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">knn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_Train_2011_2012Q2</span><span class="p">,</span> <span class="n">Y_cnt_train_2011_2012Q2</span><span class="p">)</span>
+<span class="c1"># rf.cv_results_</span>
+<span class="n">knn_predictions</span> <span class="o">=</span> <span class="n">knn</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_Test_2012Q3</span><span class="p">)</span>
+<span class="n">knn</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_Test_2012Q3</span><span class="p">,</span> <span class="n">Y_cnt_test_2012Q3</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[8]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.8169627172541623</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Support-Vector-regressor-w/-GS-for-Weekends-for-2011--&gt;-2012Q3">Support Vector regressor w/ GS for <em>Weekends</em> for 2011 -&gt; 2012Q3<a class="anchor-link" href="#Support-Vector-regressor-w/-GS-for-Weekends-for-2011--&gt;-2012Q3">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># svr = GridSearchCV(SVR(), cv=tscv,</span>
+<span class="c1">#                    param_grid={&quot;kernel&quot; : [&#39;linear&#39;, &#39;rbf&#39;, &#39;poly&#39;],</span>
+<span class="c1">#                        &quot;C&quot;: [1e0, 1e1, 1e2, 1e3],</span>
+<span class="c1">#                                &quot;gamma&quot;: np.logspace(-2, 2, 5)})</span>
+
+<span class="c1"># svr.fit(X_Train_2011_2012Q2, Y_cnt_train_2011_2012Q2)</span>
+<span class="c1"># # rf.cv_results_</span>
+<span class="c1"># svr_predictions = svr.predict(X_Test_2012Q3)</span>
+<span class="c1"># svr.score(X_Test_2012Q3, Y_cnt_test_2012Q3)</span>
 </pre></div>
 
 </div>
@@ -11969,8 +12083,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="One-hot-Encoding-|-2x-for-splitted-datasets">One hot Encoding | 2x for splitted datasets<a class="anchor-link" href="#One-hot-Encoding-|-2x-for-splitted-datasets">&#182;</a></h3><p>For <code>season</code>, <code>weathersit</code>, <code>mnth</code>,<code>weekday</code>,<code>hr</code></p>
-
+<h2 id="XGBoost-regressor-w/-GS-for-Weekends-for-2011--&gt;-2012Q3">XGBoost regressor w/ GS for <em>Weekends</em> for 2011 -&gt; 2012Q3<a class="anchor-link" href="#XGBoost-regressor-w/-GS-for-Weekends-for-2011--&gt;-2012Q3">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -11979,16 +12092,77 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">category</span>  <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;season&#39;</span><span class="p">,</span> <span class="s1">&#39;weathersit&#39;</span><span class="p">,</span> <span class="s1">&#39;mnth&#39;</span><span class="p">,</span><span class="s1">&#39;weekday&#39;</span><span class="p">,</span><span class="s1">&#39;hr&#39;</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;learning_rate&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span> 
+          <span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">12</span><span class="p">],</span>
+          <span class="s1">&#39;min_child_weight&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">35</span><span class="p">,</span><span class="mi">50</span><span class="p">],</span>
+          <span class="s1">&#39;subsample&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">],</span>
+          <span class="s1">&#39;colsample_bytree&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">],</span>
+          <span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">300</span><span class="p">],</span>
+              <span class="s1">&#39;random_state&#39;</span><span class="p">:[</span><span class="n">random_seed</span><span class="p">]</span>
+<span class="p">}</span>
 
-<span class="n">workingdays</span> <span class="o">=</span> <span class="n">onehot_encode</span><span class="p">(</span><span class="n">workingdays</span><span class="p">,</span><span class="n">category</span><span class="p">)</span>
-<span class="n">workingdays</span>  <span class="o">=</span> <span class="n">workingdays</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;instant&#39;</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">xgb</span><span class="o">.</span><span class="n">XGBRegressor</span><span class="p">()</span>
 
-<span class="n">holidays</span> <span class="o">=</span> <span class="n">onehot_encode</span><span class="p">(</span><span class="n">holidays</span><span class="p">,</span><span class="n">category</span><span class="p">)</span>
-<span class="n">holidays</span>  <span class="o">=</span> <span class="n">holidays</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;instant&#39;</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">xg</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">model</span><span class="p">,</span>
+                    <span class="n">param_grid</span> <span class="o">=</span> <span class="n">param_grid</span><span class="p">,</span>
+                    <span class="n">cv</span> <span class="o">=</span> <span class="n">tscv</span><span class="p">,</span>
+                    <span class="n">n_jobs</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+                    <span class="n">scoring</span> <span class="o">=</span> <span class="s1">&#39;r2&#39;</span><span class="p">,</span>
+                    <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">xg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_Train_2011_2012Q2</span><span class="p">,</span> <span class="n">Y_cnt_train_2011_2012Q2</span><span class="p">)</span>
+<span class="n">xg_predictions</span> <span class="o">=</span> <span class="n">xg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_Test_2012Q3</span><span class="p">)</span>
+<span class="n">xg</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_Test_2012Q3</span><span class="p">,</span> <span class="n">Y_cnt_test_2012Q3</span><span class="p">)</span>
 </pre></div>
 
 </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Fitting 5 folds for each of 288 candidates, totalling 1440 fits
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>[Parallel(n_jobs=-1)]: Using backend LokyBackend with 8 concurrent workers.
+[Parallel(n_jobs=-1)]: Done  34 tasks      | elapsed:   15.6s
+[Parallel(n_jobs=-1)]: Done 184 tasks      | elapsed:  1.5min
+[Parallel(n_jobs=-1)]: Done 434 tasks      | elapsed:  3.8min
+[Parallel(n_jobs=-1)]: Done 784 tasks      | elapsed:  7.3min
+[Parallel(n_jobs=-1)]: Done 1234 tasks      | elapsed: 12.5min
+[Parallel(n_jobs=-1)]: Done 1440 out of 1440 | elapsed: 15.7min finished
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[9]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.8879889040783053</pre>
+</div>
+
+</div>
+
 </div>
 </div>
 
@@ -11997,7 +12171,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Genetic-Programming-|-2x-for-splitted-datasets">Genetic Programming | 2x for splitted datasets<a class="anchor-link" href="#Genetic-Programming-|-2x-for-splitted-datasets">&#182;</a></h2>
+<h2 id="Taking-predictions-from-LR-and-Random-Forest-to-test-on-2012Q4">Taking predictions from LR and Random Forest to test on 2012Q4<a class="anchor-link" href="#Taking-predictions-from-LR-and-Random-Forest-to-test-on-2012Q4">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -12006,117 +12180,22 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dates</span> <span class="o">=</span> <span class="n">workingdays</span><span class="p">[</span><span class="s1">&#39;dteday&#39;</span><span class="p">]</span>
-<span class="n">registered</span> <span class="o">=</span> <span class="n">workingdays</span><span class="p">[</span><span class="s1">&#39;registered&#39;</span><span class="p">]</span>
-<span class="n">casual</span> <span class="o">=</span> <span class="n">workingdays</span><span class="p">[</span><span class="s1">&#39;casual&#39;</span><span class="p">]</span>
-<span class="n">workingdays</span> <span class="o">=</span> <span class="n">Genetic_P</span><span class="p">(</span><span class="n">workingdays</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;registered&#39;</span><span class="p">,</span><span class="s1">&#39;casual&#39;</span><span class="p">,</span><span class="s1">&#39;dteday&#39;</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span><span class="s1">&#39;cnt&#39;</span><span class="p">)</span>
-<span class="n">workingdays</span><span class="p">[</span><span class="s1">&#39;dteday&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dates</span>
-<span class="n">workingdays</span><span class="p">[</span><span class="s1">&#39;registered&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">registered</span>
-<span class="n">workingdays</span><span class="p">[</span><span class="s1">&#39;casual&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">casual</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># LR and Random Forest predictions</span>
+<span class="n">combinedPredictions</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;lm_predictions&#39;</span><span class="p">:</span><span class="n">lm_predictions</span><span class="p">,</span><span class="s1">&#39;rf_predictions&#39;</span><span class="p">:</span><span class="n">rf_predictions</span><span class="p">,</span><span class="s1">&#39;xg_predictions&#39;</span><span class="p">:</span><span class="n">xg_predictions</span> <span class="p">})</span>
+
+<span class="c1"># Concat original data</span>
+<span class="n">X_Test_2012Q3</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">combinedPredictions</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">combinedPredictions</span><span class="p">,</span><span class="n">X_Test_2012Q3</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Target data</span>
+<span class="n">combinedPredictionsTarget</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;target&#39;</span><span class="p">:</span><span class="n">Y_cnt_test_2012Q3</span><span class="p">})</span>
+
+<span class="c1">#Reset indices</span>
+<span class="n">combinedPredictions</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">combinedPredictionsTarget</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 
 </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>    |    Population Average   |             Best Individual              |
----- ------------------------- ------------------------------------------ ----------
- Gen   Length          Fitness   Length          Fitness      OOB Fitness  Time Left
-   0     8.18 0.10366531211608211       27 0.6803303846010792 0.7018874357779318      1.87m
-   1      6.5 0.354709964903118        9 0.7366881993886866 0.7220164378148297      1.59m
-   2     6.89 0.5383568806607192        8 0.7476740463886652 0.7490166380713607      1.46m
-   3    11.18 0.5057637866501863       13 0.7778487551207786 0.7775870072920257      1.41m
-   4     8.73 0.622810154591345       13 0.819772281327269 0.8099643779653568      1.37m
-   5    11.37 0.6314295341422707       22 0.8341533887833049 0.8291747736647705      1.31m
-   6    15.23 0.6718916100606667       35 0.8493650990505909 0.8556537990469637      1.29m
-   7    20.42 0.7157770457788527       38 0.8516395715562576 0.8432751909933697      1.28m
-   8    26.64 0.7457576320292357       35 0.8529354308031448 0.8435685600942456      1.26m
-   9    31.88 0.7561574160941632       35 0.8529372931229201 0.8419409692500015      1.25m
-  10    35.55 0.75590612292432       35 0.8596101056645172 0.8496629159262548      1.21m
-  11     35.6 0.7577516298268924       67 0.8617915000801162 0.866364667818459      1.17m
-  12     35.5 0.7490225667436534       41 0.8639209008635413 0.8567762898059553      1.09m
-  13    36.28 0.7617784293206373       41 0.8658754318718078 0.8359655065101648     57.87s
-  14    36.68 0.7745503765323003       41 0.8657213212865869 0.8388066646581145     53.90s
-  15    36.95 0.7840683142516855       55 0.8655231255414028 0.841156242650006     45.01s
-  16    37.29 0.778035154073355       44 0.8654437783339207 0.8610710800427817     34.89s
-  17     38.0 0.7709353855584047       35 0.8701513438893017 0.8841831081116486     23.66s
-  18    38.16 0.7818389341782349       36 0.8803818527600898 0.8770770058039786     11.94s
-  19    38.61 0.7719413115228365       36 0.8817286785333577 0.8648330383636277      0.00s
-Number of features created out of genetic programing: (11841, 15)
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dates</span> <span class="o">=</span> <span class="n">holidays</span><span class="p">[</span><span class="s1">&#39;dteday&#39;</span><span class="p">]</span>
-<span class="n">registered</span> <span class="o">=</span> <span class="n">holidays</span><span class="p">[</span><span class="s1">&#39;registered&#39;</span><span class="p">]</span>
-<span class="n">casual</span> <span class="o">=</span> <span class="n">holidays</span><span class="p">[</span><span class="s1">&#39;casual&#39;</span><span class="p">]</span>
-<span class="n">holidays</span> <span class="o">=</span> <span class="n">Genetic_P</span><span class="p">(</span><span class="n">holidays</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;registered&#39;</span><span class="p">,</span><span class="s1">&#39;casual&#39;</span><span class="p">,</span><span class="s1">&#39;dteday&#39;</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span><span class="s1">&#39;cnt&#39;</span><span class="p">)</span>
-<span class="n">holidays</span><span class="p">[</span><span class="s1">&#39;dteday&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dates</span>
-<span class="n">holidays</span><span class="p">[</span><span class="s1">&#39;registered&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">registered</span>
-<span class="n">holidays</span><span class="p">[</span><span class="s1">&#39;casual&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">casual</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>    |    Population Average   |             Best Individual              |
----- ------------------------- ------------------------------------------ ----------
- Gen   Length          Fitness   Length          Fitness      OOB Fitness  Time Left
-   0     8.19 0.1279387555910619       27 0.7391447702124135 0.6790842209716381     32.27s
-   1     6.83 0.40810662483711346        9 0.7767287166819173 0.796930939034333     43.26s
-   2     7.32 0.5711801232866154        8 0.7954894833264207 0.8168501449209555     54.58s
-   3    12.02 0.539867688621446       10 0.8138789870687457 0.7884004724625453     59.12s
-   4     8.44 0.6675797536118186       12 0.8152968051845696 0.8020240119831885      1.01m
-   5    10.46 0.6643969869918799       12 0.8266288755576687 0.8170749732941051     59.83s
-   6    13.07 0.6887941841707027       12 0.826024400928929 0.8230713618188912     56.76s
-   7    13.13 0.6906523444934862       21 0.8284314229676841 0.8229788724006125     52.35s
-   8    14.16 0.7015206001227491       26 0.8366117284867484 0.819554035283775     49.04s
-   9    15.96 0.7084049330430291       25 0.8390484509561364 0.825133321104512     44.81s
-  10     16.5 0.705023798370279       11 0.8466324501592138 0.8659658979106714     40.85s
-  11    18.27 0.7173043817476921       26 0.8525790315332034 0.8344118793758166     36.60s
-  12    19.52 0.7172017349380975       27 0.8553979009033416 0.845739195259092     32.49s
-  13     17.7 0.6981848544616095       32 0.8584283560865943 0.8722454230352821     28.25s
-  14    15.68 0.7168589286196093       46 0.8611864943227328 0.8677935742356144     23.76s
-  15    13.16 0.7145666344774058       28 0.8590710866887687 0.8505271936935428     19.13s
-  16    10.82 0.7175209255580778       33 0.8590579564960812 0.8387145525030414     14.38s
-  17     10.0 0.7297152324631035       26 0.8542884836679081 0.8522640068202044      9.59s
-  18    10.14 0.7283766858123347       10 0.8540261614815664 0.8062306386257975      4.78s
-  19    10.14 0.7304842495237451       10 0.8542395463656118 0.8124039207191525      0.00s
-Number of features created out of genetic programing: (5484, 15)
-</pre>
-</div>
-</div>
-
 </div>
 </div>
 
@@ -12125,7 +12204,48 @@ Number of features created out of genetic programing: (5484, 15)
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Final-Datasets">Final Datasets<a class="anchor-link" href="#Final-Datasets">&#182;</a></h1>
+<h2 id="Subset-Q4-data-and-concat-it-with-its-level-0-predctions">Subset Q4 data and concat it with its level-0 predctions<a class="anchor-link" href="#Subset-Q4-data-and-concat-it-with-its-level-0-predctions">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Get Q4 data</span>
+<span class="n">X_Test_Q4</span> <span class="o">=</span> <span class="n">we_h</span><span class="p">[(</span><span class="n">we_h</span><span class="p">[</span><span class="s1">&#39;dteday&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2012</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">we_h</span><span class="p">[</span><span class="s1">&#39;dteday&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2012</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))]</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;cnt&#39;</span><span class="p">,</span><span class="s1">&#39;casual&#39;</span><span class="p">,</span><span class="s1">&#39;registered&#39;</span><span class="p">,</span><span class="s1">&#39;dteday&#39;</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="c1">## NONE OF THEM IN DATA</span>
+<span class="n">Y_cnt_test_Q4</span> <span class="o">=</span><span class="n">we_h</span><span class="p">[</span><span class="s1">&#39;cnt&#39;</span><span class="p">][(</span><span class="n">we_h</span><span class="p">[</span><span class="s1">&#39;dteday&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2012</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">we_h</span><span class="p">[</span><span class="s1">&#39;dteday&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2012</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))]</span>
+<span class="n">oringal_cnt</span> <span class="o">=</span> <span class="n">Y_cnt_test_Q4</span>
+
+<span class="c1">#get level-0 predictions for Q4 data</span>
+<span class="n">Q4_lm_predictions</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">lm</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_Test_Q4</span><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;lm_predictions&quot;</span><span class="p">])</span>
+<span class="n">Q4_rf_predictions</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_Test_Q4</span><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;rf_predictions&quot;</span><span class="p">])</span>
+<span class="c1">##Q4_knn_predications = pd.DataFrame(knn.predict(X_Test_Q4), columns=[&quot;knn_predications&quot;])</span>
+<span class="n">Q4_xg_predictions</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">xg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_Test_Q4</span><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;xg_predictions&quot;</span><span class="p">])</span>
+
+<span class="n">X_Test_Q4</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">Q4_lm_predictions</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">Q4_rf_predictions</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">Q4_xg_predictions</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">Y_cnt_test_Q4</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1">#concat Q4 with level-0 predictions </span>
+<span class="n">X_Test_Q4_with_predictions</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">Q4_lm_predictions</span><span class="p">,</span> <span class="n">Q4_rf_predictions</span><span class="p">,</span><span class="n">Q4_xg_predictions</span><span class="p">,</span><span class="n">X_Test_Q4</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">Y_cnt_test_Q4</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;target&quot;</span><span class="p">:</span> <span class="n">Y_cnt_test_Q4</span><span class="p">})</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Q4-scores">Q4 scores<a class="anchor-link" href="#Q4-scores">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -12134,7 +12254,7 @@ Number of features created out of genetic programing: (5484, 15)
 <div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">holidays</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">15</span><span class="p">)]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">lm</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_Test_Q4</span><span class="p">,</span> <span class="n">Y_cnt_test_Q4</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -12151,130 +12271,9 @@ Number of features created out of genetic programing: (5484, 15)
 
 
 
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>1</th>
-      <th>2</th>
-      <th>3</th>
-      <th>4</th>
-      <th>5</th>
-      <th>6</th>
-      <th>7</th>
-      <th>8</th>
-      <th>9</th>
-      <th>10</th>
-      <th>11</th>
-      <th>12</th>
-      <th>13</th>
-      <th>14</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>29</th>
-      <td>0.974798</td>
-      <td>0.846545</td>
-      <td>0.779781</td>
-      <td>0.676480</td>
-      <td>0.974798</td>
-      <td>0.861633</td>
-      <td>0.974798</td>
-      <td>0.975218</td>
-      <td>0.662575</td>
-      <td>0.974798</td>
-      <td>0.974798</td>
-      <td>0.732373</td>
-      <td>0.974798</td>
-      <td>0.561336</td>
-    </tr>
-    <tr>
-      <th>30</th>
-      <td>0.977095</td>
-      <td>0.847556</td>
-      <td>0.780356</td>
-      <td>0.675562</td>
-      <td>0.977095</td>
-      <td>0.862450</td>
-      <td>0.977095</td>
-      <td>0.977443</td>
-      <td>0.661817</td>
-      <td>0.977095</td>
-      <td>0.977095</td>
-      <td>0.731917</td>
-      <td>0.977095</td>
-      <td>0.559433</td>
-    </tr>
-    <tr>
-      <th>31</th>
-      <td>0.925130</td>
-      <td>0.824357</td>
-      <td>0.767373</td>
-      <td>0.696062</td>
-      <td>0.925130</td>
-      <td>0.844015</td>
-      <td>0.925130</td>
-      <td>0.928794</td>
-      <td>0.679029</td>
-      <td>0.925130</td>
-      <td>0.925130</td>
-      <td>0.742426</td>
-      <td>0.925130</td>
-      <td>0.601731</td>
-    </tr>
-    <tr>
-      <th>32</th>
-      <td>0.931994</td>
-      <td>0.827456</td>
-      <td>0.769083</td>
-      <td>0.693390</td>
-      <td>0.931994</td>
-      <td>0.846441</td>
-      <td>0.931994</td>
-      <td>0.935023</td>
-      <td>0.676751</td>
-      <td>0.931994</td>
-      <td>0.931994</td>
-      <td>0.741017</td>
-      <td>0.931994</td>
-      <td>0.596234</td>
-    </tr>
-    <tr>
-      <th>33</th>
-      <td>0.790369</td>
-      <td>0.762529</td>
-      <td>0.734913</td>
-      <td>0.745258</td>
-      <td>0.790369</td>
-      <td>0.797924</td>
-      <td>0.790369</td>
-      <td>0.818138</td>
-      <td>0.723091</td>
-      <td>0.790369</td>
-      <td>0.790369</td>
-      <td>0.770767</td>
-      <td>0.790369</td>
-      <td>0.703583</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>0.8785830145250169</pre>
 </div>
 
 </div>
@@ -12288,7 +12287,7 @@ Number of features created out of genetic programing: (5484, 15)
 <div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">holidays</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">rf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_Test_Q4</span><span class="p">,</span> <span class="n">Y_cnt_test_Q4</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -12305,173 +12304,75 @@ Number of features created out of genetic programing: (5484, 15)
 
 
 
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>yr</th>
-      <th>RushHour-Med</th>
-      <th>workingday</th>
-      <th>atemp</th>
-      <th>relative_hum</th>
-      <th>isDaylight</th>
-      <th>relative_atemp</th>
-      <th>mean_per_hour</th>
-      <th>relative_windspeed</th>
-      <th>RushHour-Low</th>
-      <th>...</th>
-      <th>8</th>
-      <th>9</th>
-      <th>10</th>
-      <th>11</th>
-      <th>12</th>
-      <th>13</th>
-      <th>14</th>
-      <th>dteday</th>
-      <th>registered</th>
-      <th>casual</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>29</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0.4242</td>
-      <td>-0.775524</td>
-      <td>0</td>
-      <td>0.618955</td>
-      <td>2.0</td>
-      <td>0.971523</td>
-      <td>1</td>
-      <td>...</td>
-      <td>0.975218</td>
-      <td>0.662575</td>
-      <td>0.974798</td>
-      <td>0.974798</td>
-      <td>0.732373</td>
-      <td>0.974798</td>
-      <td>0.561336</td>
-      <td>2011-01-02</td>
-      <td>2</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>30</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0.4091</td>
-      <td>-0.887625</td>
-      <td>0</td>
-      <td>0.401594</td>
-      <td>3.0</td>
-      <td>0.117373</td>
-      <td>1</td>
-      <td>...</td>
-      <td>0.977443</td>
-      <td>0.661817</td>
-      <td>0.977095</td>
-      <td>0.977095</td>
-      <td>0.731917</td>
-      <td>0.977095</td>
-      <td>0.559433</td>
-      <td>2011-01-02</td>
-      <td>1</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>31</th>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0.4091</td>
-      <td>-1.527457</td>
-      <td>1</td>
-      <td>0.394223</td>
-      <td>8.0</td>
-      <td>0.355008</td>
-      <td>0</td>
-      <td>...</td>
-      <td>0.928794</td>
-      <td>0.679029</td>
-      <td>0.925130</td>
-      <td>0.925130</td>
-      <td>0.742426</td>
-      <td>0.925130</td>
-      <td>0.601731</td>
-      <td>2011-01-02</td>
-      <td>8</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>32</th>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0.3939</td>
-      <td>-0.798609</td>
-      <td>1</td>
-      <td>0.176721</td>
-      <td>14.0</td>
-      <td>0.348889</td>
-      <td>0</td>
-      <td>...</td>
-      <td>0.935023</td>
-      <td>0.676751</td>
-      <td>0.931994</td>
-      <td>0.931994</td>
-      <td>0.741017</td>
-      <td>0.931994</td>
-      <td>0.596234</td>
-      <td>2011-01-02</td>
-      <td>19</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>33</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0.3485</td>
-      <td>-0.123220</td>
-      <td>1</td>
-      <td>-0.464531</td>
-      <td>36.0</td>
-      <td>0.343078</td>
-      <td>0</td>
-      <td>...</td>
-      <td>0.818138</td>
-      <td>0.723091</td>
-      <td>0.790369</td>
-      <td>0.790369</td>
-      <td>0.770767</td>
-      <td>0.790369</td>
-      <td>0.703583</td>
-      <td>2011-01-02</td>
-      <td>46</td>
-      <td>7</td>
-    </tr>
-  </tbody>
-</table>
-<p>5 rows × 87 columns</p>
+<div class="output_text output_subarea output_execute_result">
+<pre>0.8496221562020154</pre>
 </div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">knn</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_Test_Q4</span><span class="p">,</span> <span class="n">Y_cnt_test_Q4</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[14]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.7577913883377447</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">xg</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_Test_Q4</span><span class="p">,</span> <span class="n">Y_cnt_test_Q4</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[15]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.8905392281141818</pre>
 </div>
 
 </div>
@@ -12484,20 +12385,335 @@ Number of features created out of genetic programing: (5484, 15)
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Save-Both-datasets">Save Both datasets<a class="anchor-link" href="#Save-Both-datasets">&#182;</a></h2>
+<h2 id="Train-and-test-Q4">Train and test Q4<a class="anchor-link" href="#Train-and-test-Q4">&#182;</a></h2>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">workingdays</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;workingdays_data_prepared.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">holidays</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;weekends_holi_data_prepared.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;learning_rate&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span> 
+          <span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">12</span><span class="p">],</span>
+          <span class="s1">&#39;min_child_weight&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">35</span><span class="p">,</span><span class="mi">50</span><span class="p">],</span>
+          <span class="s1">&#39;subsample&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">],</span>
+          <span class="s1">&#39;colsample_bytree&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">],</span>
+          <span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">300</span><span class="p">],</span>
+              <span class="s1">&#39;random_state&#39;</span><span class="p">:[</span><span class="n">random_seed</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">xgb</span><span class="o">.</span><span class="n">XGBRegressor</span><span class="p">()</span>
+
+<span class="n">xg1</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">model</span><span class="p">,</span>
+                    <span class="n">param_grid</span> <span class="o">=</span> <span class="n">param_grid</span><span class="p">,</span>
+                    <span class="n">cv</span> <span class="o">=</span> <span class="n">tscv</span><span class="p">,</span>
+                    <span class="n">n_jobs</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+                    <span class="n">scoring</span> <span class="o">=</span> <span class="s1">&#39;r2&#39;</span><span class="p">,</span>
+                    <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">xg1</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">combinedPredictions</span><span class="p">,</span> <span class="n">combinedPredictionsTarget</span><span class="p">)</span>
+<span class="n">xg1_predictions</span> <span class="o">=</span> <span class="n">xg1</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_Test_Q4_with_predictions</span><span class="p">)</span>
+<span class="n">xg1</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_Test_Q4_with_predictions</span><span class="p">,</span> <span class="n">Y_cnt_test_Q4</span><span class="p">)</span>
 </pre></div>
 
 </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Fitting 5 folds for each of 288 candidates, totalling 1440 fits
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>[Parallel(n_jobs=-1)]: Using backend LokyBackend with 8 concurrent workers.
+[Parallel(n_jobs=-1)]: Done  34 tasks      | elapsed:    4.2s
+[Parallel(n_jobs=-1)]: Done 184 tasks      | elapsed:   17.7s
+[Parallel(n_jobs=-1)]: Done 434 tasks      | elapsed:   39.6s
+[Parallel(n_jobs=-1)]: Done 784 tasks      | elapsed:  1.3min
+[Parallel(n_jobs=-1)]: Done 1234 tasks      | elapsed:  2.1min
+[Parallel(n_jobs=-1)]: Done 1440 out of 1440 | elapsed:  2.6min finished
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[16]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.8580293752201731</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">The</span> <span class="n">score</span> <span class="n">decreased</span> <span class="n">drastically</span> <span class="n">so</span> <span class="n">after</span> <span class="n">some</span> <span class="n">research</span> <span class="n">Stochastic</span> <span class="n">Gradient</span> <span class="n">Descent</span> <span class="n">seemed</span> <span class="n">like</span> <span class="n">an</span> <span class="n">appropriate</span> <span class="n">model</span> <span class="n">to</span> <span class="k">try</span> <span class="ow">in</span> <span class="n">stacking</span> <span class="n">because</span> <span class="n">it</span> <span class="n">also</span> <span class="n">act</span> <span class="n">on</span> <span class="n">errors</span> <span class="n">using</span> <span class="n">lasso</span> <span class="ow">and</span> <span class="n">ridge</span> <span class="ow">and</span> <span class="n">elastic</span> <span class="n">net</span> 
+<span class="n">penalty</span> <span class="ow">and</span> <span class="n">has</span> <span class="n">learning</span> <span class="n">rate</span> <span class="p">,</span> <span class="ow">in</span> <span class="n">fact</span> <span class="n">it</span> <span class="n">gave</span> <span class="n">a</span> <span class="n">better</span> <span class="n">score</span> <span class="n">then</span> <span class="n">XGBoost</span> <span class="n">but</span> <span class="n">still</span> <span class="ow">not</span> <span class="n">morew</span> <span class="n">then</span> <span class="n">the</span> <span class="n">level</span> <span class="mi">0</span> <span class="n">XGBoost</span> 
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Stochastic-Gradient-Descent:-tried-after-XGBoost">Stochastic Gradient Descent: tried after XGBoost<a class="anchor-link" href="#Stochastic-Gradient-Descent:-tried-after-XGBoost">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Grid search - this will take about 1 minute.</span>
+<span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="mf">10.0</span> <span class="o">**</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span>
+    <span class="s1">&#39;loss&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;squared_loss&#39;</span><span class="p">,</span> <span class="s1">&#39;huber&#39;</span><span class="p">,</span> <span class="s1">&#39;epsilon_insensitive&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;penalty&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;l2&#39;</span><span class="p">,</span> <span class="s1">&#39;l1&#39;</span><span class="p">,</span> <span class="s1">&#39;elasticnet&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;learning_rate&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;constant&#39;</span><span class="p">,</span> <span class="s1">&#39;optimal&#39;</span><span class="p">,</span> <span class="s1">&#39;invscaling&#39;</span><span class="p">],</span>
+<span class="p">}</span>
+<span class="n">clf</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">SGDRegressor</span><span class="p">(),</span> <span class="n">param_grid</span><span class="p">)</span>
+<span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">combinedPredictions</span><span class="p">,</span> <span class="n">combinedPredictionsTarget</span><span class="p">)</span>
+<span class="n">clf_predictions</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_Test_Q4_with_predictions</span><span class="p">)</span>
+<span class="n">clf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_Test_Q4_with_predictions</span><span class="p">,</span> <span class="n">Y_cnt_test_Q4</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[17]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.8801300973656445</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The score decreased after stacking, so it seems appropriate to stick with level 0 XGBoost model</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[177]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">work_predictions</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;pred_working.csv&#39;</span><span class="p">)</span>
+<span class="n">work_predictions</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;dteday&#39;</span><span class="p">,</span><span class="s1">&#39;prediction&#39;</span><span class="p">,</span><span class="s1">&#39;target&#39;</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[178]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">not_work_predictions</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">((</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">xg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_Test_Q4</span><span class="p">))</span> <span class="p">,</span> <span class="n">Y_cnt_test_Q4</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">not_work_predictions</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;prediction&#39;</span><span class="p">,</span><span class="s1">&#39;target&#39;</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[179]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The last r2 score for the predictions is :&#39;</span><span class="p">)</span>
+<span class="n">r2score</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">not_work_predictions</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">],</span>
+                         <span class="n">work_predictions</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">])),</span>
+         <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">not_work_predictions</span><span class="p">[</span><span class="s1">&#39;prediction&#39;</span><span class="p">],</span>
+                         <span class="n">work_predictions</span><span class="p">[</span><span class="s1">&#39;prediction&#39;</span><span class="p">]))</span> <span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>The last r2 score for the predictions is :
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[179]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.8970919438033946</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Stacking ensemble was useful for working days as R2 score improved by 0.01, but surprisingly there was a drop in R2 for Holidays. Research showed that Stochastic Gradient Descent could be an appropriate level 1 model as it also acts on errors using lasso and ridge and elastic net penalty, also, it has learning rate. Infact, it gave a better score (0.88)  than XGBoost but still not more then the level 0 XGBoost.</p>
+<p>This means that the new predictions that were added to the initial dataset were not useful for Level 1 model and maybe led to overfitting in the training. The final decision was to keep the stacking ensemble for Working Days, which produced an R2 score 0f 0.901 but not for the Holidays. For holidays, only  level 0 XGBoost was used that yielded a score of 0.8905. After combining the two predictions, the final R2 score was 0.897.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Prediction-Vs.-Reality-Graph">Prediction Vs. Reality Graph<a class="anchor-link" href="#Prediction-Vs.-Reality-Graph">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[180]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">date</span> <span class="o">=</span> <span class="n">we_h</span><span class="p">[</span><span class="s1">&#39;dteday&#39;</span><span class="p">][(</span><span class="n">we_h</span><span class="p">[</span><span class="s1">&#39;dteday&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2012</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">we_h</span><span class="p">[</span><span class="s1">&#39;dteday&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2012</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))]</span>
+<span class="n">date</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">date</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">date</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">work_predictions</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">not_work_predictions</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">date</span><span class="p">,</span><span class="n">not_work_predictions</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[181]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">work_predictions</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;dteday&#39;</span><span class="p">)</span>
+<span class="n">not_work_predictions</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;dteday&#39;</span><span class="p">)</span>
+
+<span class="n">combined</span><span class="o">=</span><span class="n">work_predictions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">not_work_predictions</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[182]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">combined</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="s1">&#39;dteday&#39;</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s1">&#39;cols&#39;</span><span class="p">,</span>  <span class="n">value_name</span><span class="o">=</span><span class="s1">&#39;vals&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;dteday&quot;</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;dteday&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span>  <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="n">mpl_fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">axes</span><span class="p">()</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;dteday&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;vals&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;cols&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
+
+<span class="n">plotly_fig</span><span class="o">=</span><span class="n">tls</span><span class="o">.</span><span class="n">mpl_to_plotly</span><span class="p">(</span><span class="n">mpl_fig</span><span class="p">)</span>
+<span class="n">plotly_fig</span><span class="p">[</span><span class="s1">&#39;layout&#39;</span><span class="p">][</span><span class="s1">&#39;xaxis&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+   <span class="s1">&#39;tickmode&#39;</span><span class="p">:</span> <span class="s1">&#39;auto&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;nticks&#39;</span><span class="p">:</span> <span class="mi">3</span>
+    <span class="p">}</span>
+<span class="n">plotly_fig</span><span class="p">[</span><span class="s1">&#39;layout&#39;</span><span class="p">][</span><span class="s1">&#39;showlegend&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">plotly_fig</span><span class="p">[</span><span class="s1">&#39;layout&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;width&#39;</span><span class="p">:</span><span class="mi">800</span><span class="p">}</span>
+<span class="n">plotly_fig</span><span class="p">[</span><span class="s1">&#39;layout&#39;</span><span class="p">][</span><span class="s1">&#39;title&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Predictions&#39;</span>
+<span class="n">py</span><span class="o">.</span><span class="n">iplot</span><span class="p">(</span><span class="n">plotly_fig</span><span class="p">,</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;Predictions&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[182]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plot.ly/~Furqan92/4.embed" height="525px" width="800px"></iframe>
+</div>
+
+</div>
+
 </div>
 </div>
 

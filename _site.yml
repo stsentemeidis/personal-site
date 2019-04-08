@@ -8,10 +8,10 @@ navbar:
     - text: "Python Project Part 1"
       href: 1. EDA + Baseline.html
     - text: "Python Project Part 2"
-      href: 2_Data_Preparation_(Feature+Engineering).html
+      href: 2. Data Preparation (Feature Engineering).html
     - text: "Python Project Part 3"
-      href: 3_Modeling_for_weekdays.html
+      href: 3. Modeling for weekdays.html
     - text: "Python Project Part 4"
-      href: 4-Modeling_for_weekends.html
+      href: 4- Modeling for weekends.html
     #- text: "About Me"
       #href: about.html

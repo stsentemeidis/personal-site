@@ -188,13 +188,13 @@ $(document).ready(function () {
   <a href="1. EDA + Baseline.html">Python Project Part 1</a>
 </li>
 <li>
-  <a href="2_Data_Preparation_(Feature+Engineering).html">Python Project Part 2</a>
+  <a href="2. Data Preparation (Feature Engineering).html">Python Project Part 2</a>
 </li>
 <li>
-  <a href="3_Modeling_for_weekdays.html">Python Project Part 3</a>
+  <a href="3. Modeling for weekdays.html">Python Project Part 3</a>
 </li>
 <li>
-  <a href="4-Modeling_for_weekends.html">Python Project Part 4</a>
+  <a href="4- Modeling for weekends.html">Python Project Part 4</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -969,7 +969,7 @@ skin_type_oily
 <tbody>
 <tr>
 <td style="text-align:right;">
-10
+42
 </td>
 <td style="text-align:left;">
 P38217
@@ -995,7 +995,7 @@ P38217
 </tr>
 <tr>
 <td style="text-align:right;">
-51
+59
 </td>
 <td style="text-align:left;">
 P38217
@@ -1021,7 +1021,7 @@ P38217
 </tr>
 <tr>
 <td style="text-align:right;">
-74
+11
 </td>
 <td style="text-align:left;">
 P38217
@@ -1047,7 +1047,7 @@ P38217
 </tr>
 <tr>
 <td style="text-align:right;">
-61
+76
 </td>
 <td style="text-align:left;">
 P38217
@@ -1073,7 +1073,7 @@ P38217
 </tr>
 <tr>
 <td style="text-align:right;">
-97
+75
 </td>
 <td style="text-align:left;">
 P38217
@@ -1099,7 +1099,7 @@ P38217
 </tr>
 <tr>
 <td style="text-align:right;">
-94
+46
 </td>
 <td style="text-align:left;">
 P38217
@@ -1132,11 +1132,11 @@ P38217
 <p>The matrix shows users in rows and products in columns. A numeric value corresponding to a particular user and product implies how the product was rated by a particular user. For example, <strong>user 1</strong> gave a rating of <strong>4</strong> to <strong>product P38217</strong>.</p>
 <pre><code>## 5 x 5 sparse Matrix of class &quot;dgCMatrix&quot;
 ##     P38217 P382204 P382292 P382353 P382354
-## 1        .       4       .       5       5
-## 10       5       4       3       4       5
-## 100      .       5       .       .       .
-## 12       .       5       4       5       5
-## 13       .       2       5       .       1</code></pre>
+## 1        5       3       .       5       5
+## 10       .       5       .       .       5
+## 100      1       1       .       .       5
+## 11       5       .       5       5       4
+## 12       .       5       .       .       5</code></pre>
 </div>
 <div id="number-of-ratings-per-user-with-fake-data" class="section level1">
 <h1>Number of Ratings per User with Fake Data</h1>
@@ -1222,23 +1222,23 @@ applyMyAlgorithm &lt;- function(data) {
 <pre class="r"><code>trainMyAlgorithm(train, sephora_reviews_edited, skin=&quot;skin_type_oily&quot;)
 
 head(applyMyAlgorithm(known))</code></pre>
-<pre><code>## $`15`
-## [1] &quot;P38217&quot; &quot;P38217&quot;
-## 
-## $`20`
-## [1] &quot;P38217&quot; &quot;P38217&quot;
-## 
-## $`26`
-## [1] &quot;P38217&quot; &quot;P38217&quot;
-## 
-## $`33`
+<pre><code>## $`17`
 ## [1] &quot;P382354&quot; &quot;P382354&quot;
 ## 
-## $`34`
+## $`18`
 ## [1] &quot;P38217&quot; &quot;P38217&quot;
 ## 
-## $`36`
-## [1] &quot;P38217&quot; &quot;P38217&quot;</code></pre>
+## $`19`
+## [1] &quot;P38217&quot; &quot;P38217&quot;
+## 
+## $`24`
+## [1] &quot;P38217&quot; &quot;P38217&quot;
+## 
+## $`27`
+## [1] &quot;P382354&quot; &quot;P382354&quot;
+## 
+## $`29`
+## [1] &quot;P382354&quot; &quot;P382354&quot;</code></pre>
 </div>
 <div id="second-recommendation-system" class="section level1">
 <h1>Second Recommendation System</h1>
@@ -1263,23 +1263,23 @@ applyMyAlgorithm &lt;- function(data) {
 <pre class="r"><code>trainMyAlgorithm(train, sephora_reviews_edited, skin=&quot;skin_type_combination&quot;)
 
 head(applyMyAlgorithm(known))</code></pre>
-<pre><code>## $`15`
+<pre><code>## $`17`
+## [1] &quot;P384342&quot;
+## 
+## $`18`
 ## character(0)
 ## 
-## $`20`
-## [1] &quot;P38217&quot; &quot;P38217&quot;
-## 
-## $`26`
-## [1] &quot;P38217&quot; &quot;P38217&quot;
-## 
-## $`33`
-## [1] &quot;P382292&quot; &quot;P382292&quot;
-## 
-## $`34`
+## $`19`
 ## character(0)
 ## 
-## $`36`
-## character(0)</code></pre>
+## $`24`
+## character(0)
+## 
+## $`27`
+## [1] &quot;P38217&quot; &quot;P38217&quot;
+## 
+## $`29`
+## [1] &quot;P38217&quot; &quot;P38217&quot;</code></pre>
 </div>
 <div id="feedback-loop" class="section level1">
 <h1>Feedback Loop</h1>
