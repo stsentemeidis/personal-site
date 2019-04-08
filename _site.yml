@@ -3,9 +3,15 @@ output_dir: "."
 navbar:
   title: "Furqan's Website"
   left:
-    - text: "Home"
+    - text: "Recommendation Engine"
       href: index.html
-    - text: "About Me"
-      href: about.html
-    - text: "EDA_baseline"
+    - text: "Python Project Part 1"
       href: 1_EDA__Baseline.html
+    - text: "Python Project Part 2"
+      href: 2_Data_Preparation_(Feature+Engineering).html
+    - text: "Python Project Part 3"
+      href: 3_Modeling_for_weekdays.html
+    - text: "Python Project Part 4"
+      href: 4-Modeling_for_weekends.html
+    #- text: "About Me"
+      #href: about.html
