@@ -15,3 +15,5 @@ navbar:
           href: 3. Modeling for weekdays.html
         - text: "Python Project Part 4"
           href: 4- Modeling for weekends.html
+        - text: "Attrition Prediction"
+          href: Muhammad Furqan.html
