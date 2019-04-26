@@ -6,6 +6,9 @@
 
 ---
 title: "Recommendation Engine"
+output:
+  html_document:
+    df_print: paged
 ---
 
 
