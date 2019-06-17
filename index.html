@@ -194,7 +194,7 @@ $(document).ready(function () {
       <a href="index.html">Recommendation Engine</a>
     </li>
     <li>
-      <a href="1. NLP_Assignment1.html">NLP - Text Classification</a>
+      <a href="NLP_Assignment.html">NLP - Text Classification</a>
     </li>
     <li>
       <a href="2. EDA + Baseline.html">Python Project Part 1</a>
@@ -989,7 +989,7 @@ skin_type_oily
 <tbody>
 <tr>
 <td style="text-align:right;">
-7
+6
 </td>
 <td style="text-align:left;">
 P38217
@@ -1015,7 +1015,7 @@ P38217
 </tr>
 <tr>
 <td style="text-align:right;">
-58
+74
 </td>
 <td style="text-align:left;">
 P38217
@@ -1041,7 +1041,7 @@ P38217
 </tr>
 <tr>
 <td style="text-align:right;">
-67
+18
 </td>
 <td style="text-align:left;">
 P38217
@@ -1067,7 +1067,7 @@ P38217
 </tr>
 <tr>
 <td style="text-align:right;">
-42
+73
 </td>
 <td style="text-align:left;">
 P38217
@@ -1093,7 +1093,7 @@ P38217
 </tr>
 <tr>
 <td style="text-align:right;">
-3
+72
 </td>
 <td style="text-align:left;">
 P38217
@@ -1119,7 +1119,7 @@ P38217
 </tr>
 <tr>
 <td style="text-align:right;">
-25
+59
 </td>
 <td style="text-align:left;">
 P38217
@@ -1152,11 +1152,11 @@ P38217
 <p>The matrix shows users in rows and products in columns. A numeric value corresponding to a particular user and product implies how the product was rated by a particular user. For example, <strong>user 1</strong> gave a rating of <strong>4</strong> to <strong>product P38217</strong>.</p>
 <pre><code>## 5 x 5 sparse Matrix of class &quot;dgCMatrix&quot;
 ##     P38217 P382204 P382292 P382353 P382354
-## 1        4       5       .       .       .
-## 10       5       .       .       5       5
-## 100      2       4       .       .       5
-## 11       5       .       5       5       5
-## 12       .       5       5       4       5</code></pre>
+## 1        5       4       .       .       5
+## 10       2       1       1       5       4
+## 100      5       5       .       4       5
+## 11       5       5       4       4       5
+## 12       5       5       .       .       5</code></pre>
 </div>
 <div id="number-of-ratings-per-user-with-fake-data" class="section level1">
 <h1>Number of Ratings per User with Fake Data</h1>
@@ -1242,22 +1242,22 @@ applyMyAlgorithm &lt;- function(data) {
 <pre class="r"><code>trainMyAlgorithm(train, sephora_reviews_edited, skin=&quot;skin_type_oily&quot;)
 
 head(applyMyAlgorithm(known))</code></pre>
-<pre><code>## $`1`
-## [1] &quot;P38217&quot; &quot;P38217&quot;
-## 
-## $`10`
-## [1] &quot;P38217&quot; &quot;P38217&quot;
-## 
-## $`24`
+<pre><code>## $`16`
 ## [1] &quot;P382354&quot; &quot;P382354&quot;
 ## 
-## $`29`
-## [1] &quot;P38217&quot; &quot;P38217&quot;
+## $`19`
+## [1] &quot;P382354&quot; &quot;P382354&quot;
+## 
+## $`2`
+## [1] &quot;P382354&quot; &quot;P382354&quot;
 ## 
 ## $`3`
 ## [1] &quot;P38217&quot; &quot;P38217&quot;
 ## 
-## $`32`
+## $`30`
+## [1] &quot;P382354&quot; &quot;P382354&quot;
+## 
+## $`34`
 ## [1] &quot;P38217&quot; &quot;P38217&quot;</code></pre>
 </div>
 <div id="second-recommendation-system" class="section level1">
@@ -1283,23 +1283,23 @@ applyMyAlgorithm &lt;- function(data) {
 <pre class="r"><code>trainMyAlgorithm(train, sephora_reviews_edited, skin=&quot;skin_type_combination&quot;)
 
 head(applyMyAlgorithm(known))</code></pre>
-<pre><code>## $`1`
-## character(0)
-## 
-## $`10`
-## character(0)
-## 
-## $`24`
+<pre><code>## $`16`
 ## [1] &quot;P382292&quot; &quot;P382292&quot;
 ## 
-## $`29`
-## character(0)
+## $`19`
+## [1] &quot;P382292&quot; &quot;P382292&quot;
+## 
+## $`2`
+## [1] &quot;P382292&quot; &quot;P382292&quot;
 ## 
 ## $`3`
 ## character(0)
 ## 
-## $`32`
-## character(0)</code></pre>
+## $`30`
+## [1] &quot;P382292&quot; &quot;P382292&quot;
+## 
+## $`34`
+## [1] &quot;P38217&quot; &quot;P38217&quot;</code></pre>
 </div>
 <div id="feedback-loop" class="section level1">
 <h1>Feedback Loop</h1>
