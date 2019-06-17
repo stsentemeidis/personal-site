@@ -8,7 +8,7 @@ navbar:
         - text: "Recommendation Engine"
           href: index.html
         - text: "NLP - Text Classification"
-          href: 1. NLP_Assignment1.html
+          href: NLP_Assignment1.html
         - text: "Python Project Part 1"
           href: 2. EDA + Baseline.html
         - text: "Python Project Part 2"
