@@ -10,13 +10,13 @@ navbar:
         - text: "NLP - Text Classification"
           href: NLP_Assignment.html
         - text: "Python Project Part 1"
-          href: 2. EDA + Baseline.html
+          href: 1. EDA + Baseline.html
         - text: "Python Project Part 2"
-          href: 3. Data Preparation (Feature Engineering).html
+          href: 2. Data Preparation (Feature Engineering).html
         - text: "Python Project Part 3"
-          href: 4. Modeling for weekdays.html
+          href: 3. Modeling for weekdays.html
         - text: "Python Project Part 4"
-          href: 5. Modeling for weekends.html
+          href: 4. Modeling for weekends.html
         - text: "Attrition Prediction"
           href: Muhammad Furqan.html
         - text: "Spark - Marketing Department's Data"
