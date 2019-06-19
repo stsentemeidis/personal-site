@@ -11,7 +11,7 @@
 
 
 
-<title>Recommendation Engine</title>
+<title>Stavro’s Website</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -22,9 +22,6 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
-<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
-<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -72,9 +69,7 @@ h6 {
 </style>
 
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -99,6 +94,9 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
@@ -113,7 +111,6 @@ body {
   padding-top: 56px;
   margin-top: -56px;
 }
-
 .section h2 {
   padding-top: 56px;
   margin-top: -56px;
@@ -133,6 +130,43 @@ body {
 .section h6 {
   padding-top: 56px;
   margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
 }
 </style>
 
@@ -154,19 +188,85 @@ $(document).ready(function () {
 });
 </script>
 
-
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
 });
 </script>
 
 <!-- code folding -->
 
 
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
 
 
 
@@ -179,7 +279,7 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">Furqan's Website</a>
+      <a class="navbar-brand" href="index.html">Stavros's Website</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -191,28 +291,7 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="index.html">Recommendation Engine</a>
-    </li>
-    <li>
-      <a href="NLP_Assignment.html">NLP - Text Classification</a>
-    </li>
-    <li>
-      <a href="1.EDA+Baseline.html">Python Project Part 1</a>
-    </li>
-    <li>
-      <a href="2.Data_Preparation_and_Feature_Engineering.html">Python Project Part 2</a>
-    </li>
-    <li>
-      <a href="3.Modeling_for_weekdays.html">Python Project Part 3</a>
-    </li>
-    <li>
-      <a href="4.Modeling_for_weekends.html">Python Project Part 4</a>
-    </li>
-    <li>
-      <a href="Muhammad Furqan.html">Attrition Prediction</a>
-    </li>
-    <li>
-      <a href="Lab10-Asignment2-Muhammad-Furqan.html">Spark - Marketing Department's Data</a>
+      <a href="Ind_Proj_Stavros_Tsentemeidis.html">House Prices Seattle</a>
     </li>
   </ul>
 </li>
@@ -228,1083 +307,12 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Recommendation Engine</h1>
+<h1 class="title toc-ignore">Stavro’s Website</h1>
 
 </div>
 
 
-<div id="introduction" class="section level1">
-<h1>Introduction</h1>
-<p>Selecting a product that fits your needs is a tiring process. The process is more demanding with the evergrowing range of products. Makeup is a category that does not only have a big range of products, but also requires a consumer to select the right product according to skin type. It is not uncommon for relatives or friends to buy makeup as a gift for their loved ones; buying such gifts is a difficult process because of wide range of products and the added complexity of selecting a product that matches skin-type of the loved ones. In such a situation, a recommender system that recommends products as per skin type can take burden off the purchaser.</p>
-</div>
-<div id="dataset" class="section level1">
-<h1>Dataset</h1>
-<p>Sephora’s data is used for building this recommender system. Sephora is a popular makeup brand with millions of customers all around the world. The fact that Sephora is a global brand ensures that all different types of makeup products and skin types are accounted for. While the reason for choosing Sephora’s dataset is to be able to account for wide range of makeup products and skin types, for the purpose of this assignment a smaller dataset with <strong>1000 user</strong> ratings, <strong>12 products</strong> and <strong>5 skin types</strong> is chosen. However, expanding the algorithm to a larger dataset will be frictionless.</p>
-<div style="border: 1px solid #ddd; padding: 5px; overflow-y: scroll; height:400px; overflow-x: scroll; width:100%; ">
-<table class="table table-striped table-hover table-condensed table-responsive" style="margin-left: auto; margin-right: auto;">
-<caption>
-Reviews raw import
-</caption>
-<thead>
-<tr>
-<th style="text-align:left;">
-product_id
-</th>
-<th style="text-align:left;">
-review_title
-</th>
-<th style="text-align:left;">
-review_text
-</th>
-<th style="text-align:right;">
-rating
-</th>
-<th style="text-align:left;">
-age_range
-</th>
-<th style="text-align:left;">
-skin_type
-</th>
-<th style="text-align:left;">
-skin_tone
-</th>
-<th style="text-align:left;">
-eye_color
-</th>
-<th style="text-align:left;">
-reviewer_username
-</th>
-<th style="text-align:left;">
-tags
-</th>
-<th style="text-align:left;">
-review_id
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-P38217
-</td>
-<td style="text-align:left;">
-Worth the money
-</td>
-<td style="text-align:left;">
-Sometimes I stray from this cleanser, but I always come back. It takes off all makeup completely and leaves my skin feeling fresh and looking bright. The exfoliation is very, very gentle, and perfect for my slightly sensitive skin. It seems expensive, but because you need just a bit it lasts for a long, long time.
-</td>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-normal
-</td>
-<td style="text-align:left;">
-light
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-katechatte
-</td>
-<td style="text-align:left;">
-{foamy,exfoliating}
-</td>
-<td style="text-align:left;">
-6611717f-2636-4756-bf36-66c81cc267a7
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-P38217
-</td>
-<td style="text-align:left;">
-Great
-</td>
-<td style="text-align:left;">
-I am a 41 year old African American woman with sign of hormonal aging. This product has my skin looking great, but you must use all of the other products for the full benefits.
-</td>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-combination
-</td>
-<td style="text-align:left;">
-deep
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-snook41
-</td>
-<td style="text-align:left;">
-{foamy}
-</td>
-<td style="text-align:left;">
-e7d3307e-02ff-45a1-8fc3-6bd628bedd86
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-P38217
-</td>
-<td style="text-align:left;">
-Great Product
-</td>
-<td style="text-align:left;">
-I’m really enjoying this product. Received a sample trio of the Murad products to try first, then purchased the cleanser. Great deal at $35 as a little goes a long way! I use it nightly with my Clarisonic Mia and in the morning by itself. Leaves my skin feeling clean and smooth and appears to be helping to even out my skin tone.
-</td>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-combination
-</td>
-<td style="text-align:left;">
-olive
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-wahinewarrior
-</td>
-<td style="text-align:left;">
-{foamy,milky,exfoliating}
-</td>
-<td style="text-align:left;">
-4188d728-fde6-4d06-984e-164cca2b8781
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-P38217
-</td>
-<td style="text-align:left;">
-Nice, but not great for combination skin
-</td>
-<td style="text-align:left;">
-I tried this cleanser at a friends house, and I was instantly in love. I have combination skin, oily t-zone with flaky, dehydrated patches near my mouth and jaw line. After washing my face with this cleanser, my skin felt hydrated and more even-textured…So the next day, I bought this cleanser! However, it has been a week and my pores very large and I’m beginning to notice black heads :( my skin feels hydrated, but I’m still noticing a bit of dryness.
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-combination
-</td>
-<td style="text-align:left;">
-fair
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-jenlines22
-</td>
-<td style="text-align:left;">
-{hydrating,creamy}
-</td>
-<td style="text-align:left;">
-248c904c-6e30-4929-8228-87b03ad7a921
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-P38217
-</td>
-<td style="text-align:left;">
-great moisturizer
-</td>
-<td style="text-align:left;">
-leaves the skin feeling fresh and revived… just loving it
-</td>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-dry
-</td>
-<td style="text-align:left;">
-light
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-jessea
-</td>
-<td style="text-align:left;">
-{exfoliating}
-</td>
-<td style="text-align:left;">
-654bdb99-9371-4440-a540-0dd2a73da339
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-P38217
-</td>
-<td style="text-align:left;">
-It works
-</td>
-<td style="text-align:left;">
-I am a 33 year old Latina with combination oily/normal skin. I didn’t like the marketing on this as something that was to protect skin from hormonal aging (not there yet), but I loved the creamy texture and the way it left my skin feeling soft. Also, a little really goes a long way. It’s worht the splurge.
-</td>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-combination
-</td>
-<td style="text-align:left;">
-medium
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-Anonymous
-</td>
-<td style="text-align:left;">
-{milky}
-</td>
-<td style="text-align:left;">
-35eadf21-f589-4e57-b149-af59a2e8fe07
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div id="data-preparation" class="section level1">
-<h1>Data Preparation</h1>
-<p>The original dataset is stripped down to columns that are required for the purpose of building a recommendation engine. Following columns are selected:</p>
-<ul>
-<li>User_id</li>
-<li>User_name</li>
-<li>Rating</li>
-<li>Product</li>
-<li>Skin_type</li>
-</ul>
-<p>Inorder to be able to build a recommendation system that recommends products as per skin type, the five skin types are transformed in to dummy columns. Therfore, the prepared dataset is as follows:</p>
-<div style="border: 1px solid #ddd; padding: 5px; overflow-y: scroll; height:400px; overflow-x: scroll; width:100%; ">
-<table class="table table-striped table-hover table-condensed table-responsive" style="margin-left: auto; margin-right: auto;">
-<caption>
-Reviews raw import
-</caption>
-<thead>
-<tr>
-<th style="text-align:left;">
-user_id
-</th>
-<th style="text-align:left;">
-user_name
-</th>
-<th style="text-align:right;">
-rating
-</th>
-<th style="text-align:left;">
-product
-</th>
-<th style="text-align:right;">
-skin_type_
-</th>
-<th style="text-align:right;">
-skin_type_combination
-</th>
-<th style="text-align:right;">
-skin_type_dry
-</th>
-<th style="text-align:right;">
-skin_type_normal
-</th>
-<th style="text-align:right;">
-skin_type_oily
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-6611717f-2636-4756-bf36-66c81cc267a7
-</td>
-<td style="text-align:left;">
-katechatte
-</td>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:left;">
-P38217
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-e7d3307e-02ff-45a1-8fc3-6bd628bedd86
-</td>
-<td style="text-align:left;">
-snook41
-</td>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:left;">
-P38217
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-4188d728-fde6-4d06-984e-164cca2b8781
-</td>
-<td style="text-align:left;">
-wahinewarrior
-</td>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:left;">
-P38217
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-248c904c-6e30-4929-8228-87b03ad7a921
-</td>
-<td style="text-align:left;">
-jenlines22
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:left;">
-P38217
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-654bdb99-9371-4440-a540-0dd2a73da339
-</td>
-<td style="text-align:left;">
-jessea
-</td>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:left;">
-P38217
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-35eadf21-f589-4e57-b149-af59a2e8fe07
-</td>
-<td style="text-align:left;">
-Anonymous
-</td>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:left;">
-P38217
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div id="data-in-recommender-lab-format" class="section level1">
-<h1>Data in Recommender Lab Format</h1>
-<div style="border: 1px solid #ddd; padding: 5px; overflow-y: scroll; height:400px; overflow-x: scroll; width:100%; ">
-<table class="table table-striped table-hover table-condensed table-responsive" style="margin-left: auto; margin-right: auto;">
-<caption>
-Data in Recommender Format
-</caption>
-<thead>
-<tr>
-<th style="text-align:left;">
-user_id
-</th>
-<th style="text-align:left;">
-product
-</th>
-<th style="text-align:right;">
-rating
-</th>
-<th style="text-align:left;">
-skin_type_
-</th>
-<th style="text-align:left;">
-skin_type_combination
-</th>
-<th style="text-align:right;">
-skin_type_dry
-</th>
-<th style="text-align:right;">
-skin_type_normal
-</th>
-<th style="text-align:right;">
-skin_type_oily
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-6611717f-2636-4756-bf36-66c81cc267a7
-</td>
-<td style="text-align:left;">
-P38217
-</td>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:left;">
-0
-</td>
-<td style="text-align:left;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-e7d3307e-02ff-45a1-8fc3-6bd628bedd86
-</td>
-<td style="text-align:left;">
-P38217
-</td>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:left;">
-0
-</td>
-<td style="text-align:left;">
-1
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-4188d728-fde6-4d06-984e-164cca2b8781
-</td>
-<td style="text-align:left;">
-P38217
-</td>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:left;">
-0
-</td>
-<td style="text-align:left;">
-1
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-248c904c-6e30-4929-8228-87b03ad7a921
-</td>
-<td style="text-align:left;">
-P38217
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:left;">
-0
-</td>
-<td style="text-align:left;">
-1
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-654bdb99-9371-4440-a540-0dd2a73da339
-</td>
-<td style="text-align:left;">
-P38217
-</td>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:left;">
-0
-</td>
-<td style="text-align:left;">
-0
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-35eadf21-f589-4e57-b149-af59a2e8fe07
-</td>
-<td style="text-align:left;">
-P38217
-</td>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:left;">
-0
-</td>
-<td style="text-align:left;">
-1
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div id="real-rating-matrix" class="section level1">
-<h1>Real Rating Matrix</h1>
-<p>The matrix shows users in rows and products in columns. A numeric value corresponding to a particular user and product implies how the product was rated by a particular user. For example, <strong>user 00e8748d-1763-490f-8076-a9125cbaa4b3</strong> gave a rating of <strong>4</strong> to <strong>product P382292</strong>.</p>
-<pre><code>## 5 x 5 sparse Matrix of class &quot;dgCMatrix&quot;
-##                                      P38217 P382204 P382292 P382353
-## 0010647f-8326-4e71-b9eb-7e21f4add1dd      .       .       .       .
-## 002feeba-f7ee-453c-80ed-2e5a1aa44dc1      .       .       .       .
-## 007e93f4-bd3e-479c-a8ab-0b796c0167be      .       .       .       .
-## 00e8748d-1763-490f-8076-a9125cbaa4b3      .       .       4       .
-## 00ed93b3-d077-4e04-9579-078393fe580a      5       .       .       .
-##                                      P382354
-## 0010647f-8326-4e71-b9eb-7e21f4add1dd       .
-## 002feeba-f7ee-453c-80ed-2e5a1aa44dc1       .
-## 007e93f4-bd3e-479c-a8ab-0b796c0167be       .
-## 00e8748d-1763-490f-8076-a9125cbaa4b3       .
-## 00ed93b3-d077-4e04-9579-078393fe580a       .</code></pre>
-</div>
-<div id="number-of-ratings-per-user" class="section level1">
-<h1>Number of Ratings per User</h1>
-<p>The figure below shows that reviews per user equal <strong>1</strong>. A dataset with only one review per user can not produce reasonable recommendations because the algorithm will not be able to learn enough about the user. Therefore, dummy users are created.</p>
-<p><img src="index_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
-</div>
-<div id="fake-data" class="section level1">
-<h1>Fake Data</h1>
-<p>In order to solve the problem of one review per user, fake data is created for users. The method used for creating fake users is a simple <strong>sampling with replacement</strong> of numbers between 1 and 100 for 1000 rows of the dataset. The dataset with fake users is as follows:</p>
-<pre class="r"><code># Replacing user column with dummy data
-users &lt;- sample.int(100, 1000, replace = T, prob = runif(100, min=0, max=0.2))
-sephora_reviews_edited$user_id &lt;- users
-datRlab$user_id &lt;- users
-# Display
-head(datRlab) %&gt;%
-  kable(caption = &quot;Data in Recommender Format&quot;) %&gt;%
-    kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;, &quot;responsive&quot;)) %&gt;%
-     scroll_box(width = &quot;100%&quot;, height = &quot;400px&quot;)</code></pre>
-<div style="border: 1px solid #ddd; padding: 5px; overflow-y: scroll; height:400px; overflow-x: scroll; width:100%; ">
-<table class="table table-striped table-hover table-condensed table-responsive" style="margin-left: auto; margin-right: auto;">
-<caption>
-Data in Recommender Format
-</caption>
-<thead>
-<tr>
-<th style="text-align:right;">
-user_id
-</th>
-<th style="text-align:left;">
-product
-</th>
-<th style="text-align:right;">
-rating
-</th>
-<th style="text-align:left;">
-skin_type_
-</th>
-<th style="text-align:left;">
-skin_type_combination
-</th>
-<th style="text-align:right;">
-skin_type_dry
-</th>
-<th style="text-align:right;">
-skin_type_normal
-</th>
-<th style="text-align:right;">
-skin_type_oily
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:right;">
-38
-</td>
-<td style="text-align:left;">
-P38217
-</td>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:left;">
-0
-</td>
-<td style="text-align:left;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-94
-</td>
-<td style="text-align:left;">
-P38217
-</td>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:left;">
-0
-</td>
-<td style="text-align:left;">
-1
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-41
-</td>
-<td style="text-align:left;">
-P38217
-</td>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:left;">
-0
-</td>
-<td style="text-align:left;">
-1
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-61
-</td>
-<td style="text-align:left;">
-P38217
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:left;">
-0
-</td>
-<td style="text-align:left;">
-1
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-70
-</td>
-<td style="text-align:left;">
-P38217
-</td>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:left;">
-0
-</td>
-<td style="text-align:left;">
-0
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-41
-</td>
-<td style="text-align:left;">
-P38217
-</td>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:left;">
-0
-</td>
-<td style="text-align:left;">
-1
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div id="new-real-rating-matrix" class="section level1">
-<h1>New Real Rating Matrix</h1>
-<p>The matrix shows users in rows and products in columns. A numeric value corresponding to a particular user and product implies how the product was rated by a particular user. For example, <strong>user 1</strong> gave a rating of <strong>4</strong> to <strong>product P38217</strong>.</p>
-<pre><code>## 5 x 5 sparse Matrix of class &quot;dgCMatrix&quot;
-##     P38217 P382204 P382292 P382353 P382354
-## 1        4       .       5       5       .
-## 10       5       3       2       .       5
-## 100      .       1       .       5       5
-## 11       .       4       .       4       .
-## 12       5       3       3       5       5</code></pre>
-</div>
-<div id="number-of-ratings-per-user-with-fake-data" class="section level1">
-<h1>Number of Ratings per User with Fake Data</h1>
-<p>The following histogram shows number of ratings per user. Fake data for users has solved the issue of only 1 rating per user.</p>
-<p><img src="index_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
-</div>
-<div id="number-of-products-per-mean-rating" class="section level1">
-<h1>Number of Products per Mean Rating</h1>
-<p>The following graph shows number of products for a particular mean rating. As <strong>3 out of 12</strong> products have a mean rating of 5, where as <strong>2 out of 12</strong> products have mean rating less than <strong>3</strong>. This finding is helpful in determining the “good rating” parameter in evaluation scheme. In order to not recommend the two products with mean rating less than 3, given rating parameter will be set to 3.</p>
-<p><img src="index_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
-</div>
-<div id="heatmap" class="section level1">
-<h1>Heatmap</h1>
-<p>The heatmap is a useful way of visualizing preference of users for products. A closer look at the heatmap shows that most of the <strong>dark black</strong> boxes lie in the column of product <strong>5</strong>, which means that most users rated product <strong>5</strong> favorably.</p>
-<p><img src="index_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
-</div>
-<div id="evaluation-scheme" class="section level1">
-<h1>Evaluation Scheme</h1>
-<p>The following evaluation scheme splits the data into 75/25. 75% of the data is used for training, whereas 25% of the data is used for testing the recommender system.</p>
-<p>As stated above, “good rating” parameter is set to <strong>3</strong> in order for the recommender system to not recommend products that have a mean rating of less than 3. This is a crucial decision to build reliability of a recommender system. If a recommender system is allowed to recommend products with low ratings, users will not see value in it.</p>
-<p>“Given” parameter is set to <strong>1</strong> in order for the recommender to use ratings of all the users present in the dataset. The objective of the recommender system is to cover as many user preferences as possible, therefore users with less ratings are not dropped.</p>
-<pre class="r"><code>sephora_realrating_binarized &lt;- binarize(sephora_realrating, minRating=3)
-esSplit &lt;- evaluationScheme(sephora_realrating, method=&quot;split&quot;, train=0.75, given=1, goodRating=3)
-
-train &lt;- getData(esSplit, &quot;train&quot;)
-known &lt;- getData(esSplit, &quot;known&quot;)
-unknown &lt;- getData(esSplit, &quot;unknown&quot;)</code></pre>
-</div>
-<div id="recommendation-methodology" class="section level1">
-<h1>Recommendation Methodology</h1>
-<p>Before designing a recommendation system for recommending makeup products, it is important to understand all the nuances of the industry:</p>
-<ul>
-<li>Consumers switch brands</li>
-</ul>
-<p>In an event where consumer switches to another brand, products of the new brand vary interms of fitness for skin type. In such a case, the consumer has to try a pletohra of products before chosing one. As much as it is an issue for consumers, it is an opportunities for brands to pull customers. The recommender system will be sold to makeup brands and will enable the brands to recommend products to new customers as per their skin types.</p>
-<ul>
-<li>New products due to innovation in the industry</li>
-</ul>
-<p>Brands in the makeup industry only stay relevant as far as they innovate. Innovation is essential for growth, and it introduces new products. Strong marketing of new products attracts existing consumers to buy it, however, as much as this is an opportunity for brands, it can also end up in a bad experience for consumers. In order to avoid a bad experience for consumers, the recommender system will have two algorithms working side by side, the main one and another recommender system that is designed to solve the issue of bad experience with new products. The second recommender system will solely be a user-based recommender that recommends products as per skin type. User-based recommender will only recommend items that have been vetted by other users who like similar items to the consumer.</p>
-<ul>
-<li>Makeup is a propular gift item</li>
-</ul>
-<p>It is often that relatives and friends buy makeup for loved ones. In order to ease the process of buying a gift, recommender systems at brands’ outlets will recommend suitable products as per skin type.</p>
-<ul>
-<li>Young consumers try first makeup product during teenage</li>
-</ul>
-<p>Consumers who are buying makeup for the first time pose the same problem as consumers who switch brands. They have a million products to chose from and it can be a tiring process. The main recommender system proposed will ease the process by recommending products that suit their skin types.</p>
-<p>The above stated understanding of the industry demands two recommendation systems to be designed:</p>
-<ul>
-<li>Main Recommendation System</li>
-</ul>
-<p>The main recommendation system has to recommend based on skin type and cater to the issue of brand switching and new consumers, therefore an appropriate recommender system will be a combination of <strong>popular</strong> and <strong>Item based collaborative filtering</strong> recommender. The hybrid recommender will give recommendations to people who have never bought makeup before, aswell as to people who are looking for similar products after a brand switch.</p>
-<ul>
-<li>Second Recommendation System</li>
-</ul>
-<p>The second recommendation system is solely designed to solve the issue of bad experience with new products that enter the market. In order to only recommend new products that have been previously vetted by similar users, a <strong>User based collaborative filtering</strong> recommender is designed.</p>
-</div>
-<div id="main-recommendation-system" class="section level1">
-<h1>Main Recommendation System</h1>
-<pre class="r"><code>recc &lt;- NA
-targeted_skin &lt;- NA
-
-# This algorithm only recommends within one skin_type
-trainMyAlgorithm &lt;- function(data, metadata, skin) {
-  targeted_skin &lt;&lt;- metadata[metadata[,skin] == 1, &quot;product&quot;]
-  filtered_data &lt;- data[,targeted_skin]
-  recc &lt;&lt;- HybridRecommender(Recommender(filtered_data[1:69], method=&quot;IBCF&quot;, param=list(method =
-                                         &quot;Pearson&quot;,k=300)),
-                             Recommender(filtered_data[1:69], method=&quot;POPULAR&quot;, param= NULL),
-                             weights = c(0.65,0.35)
-                            )
- 
-}
-
-applyMyAlgorithm &lt;- function(data) {
-  filtered_data &lt;- data[,targeted_skin]
-  pre &lt;- predict(recc, filtered_data, n = 2)
-  return(as(pre,&quot;list&quot;))
-}</code></pre>
-</div>
-<div id="predictions" class="section level1">
-<h1>Predictions</h1>
-<pre class="r"><code>trainMyAlgorithm(train, sephora_reviews_edited, skin=&quot;skin_type_oily&quot;)
-
-head(applyMyAlgorithm(known))</code></pre>
-<pre><code>## $`1`
-## [1] &quot;P382355&quot; &quot;P382355&quot;
-## 
-## $`12`
-## [1] &quot;P382355&quot; &quot;P382355&quot;
-## 
-## $`13`
-## [1] &quot;P38217&quot; &quot;P38217&quot;
-## 
-## $`14`
-## [1] &quot;P38217&quot; &quot;P38217&quot;
-## 
-## $`17`
-## [1] &quot;P38217&quot; &quot;P38217&quot;
-## 
-## $`21`
-## [1] &quot;P382355&quot; &quot;P382355&quot;</code></pre>
-</div>
-<div id="second-recommendation-system" class="section level1">
-<h1>Second Recommendation System</h1>
-<pre class="r"><code>recc &lt;- NA
-targeted_skin &lt;- NA
-
-# This algorithm only recommends within one skin_type
-trainMyAlgorithm &lt;- function(data, metadata, skin) {
-  targeted_skin &lt;&lt;- metadata[metadata[,skin] == 1, &quot;product&quot;]
-  filtered_data &lt;- data[,targeted_skin]
-  recc &lt;&lt;- Recommender(filtered_data[1:69], method=&quot;UBCF&quot;,param=list(nn=40))
-}
-
-applyMyAlgorithm &lt;- function(data) {
-  filtered_data &lt;- data[,targeted_skin]
-  pre &lt;- predict(recc, filtered_data, n = 2)
-  return(as(pre, &quot;list&quot;))
-}</code></pre>
-</div>
-<div id="predictions-1" class="section level1">
-<h1>Predictions</h1>
-<pre class="r"><code>trainMyAlgorithm(train, sephora_reviews_edited, skin=&quot;skin_type_combination&quot;)
-
-head(applyMyAlgorithm(known))</code></pre>
-<pre><code>## $`1`
-## [1] &quot;P384342&quot;
-## 
-## $`12`
-## [1] &quot;P384342&quot;
-## 
-## $`13`
-## character(0)
-## 
-## $`14`
-## character(0)
-## 
-## $`17`
-## character(0)
-## 
-## $`21`
-## [1] &quot;P384342&quot;</code></pre>
-</div>
-<div id="feedback-loop" class="section level1">
-<h1>Feedback Loop</h1>
-<p>Recommender systems require a strong feedback loop in order to provide valuable recommendations to users. As this recommender system will be sold to Makeup brands and will be installed at points of sale to facilitate customers in their buying decision, the feedback will be based on actual sale of products that are recommended. If a customer buys the product that is recommended, a transaction is considered a good recommendation, otherwise the recommender system considers it a bad recommendations and learns from it. Since consumers try the product before buying, purchase of product is a good indicator of a good recommendation.</p>
-</div>
+<p>Hello, World!</p>
 
 
 
