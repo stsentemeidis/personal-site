@@ -1,11 +1,47 @@
 name: "Stavros-website"
 output_dir: "."
 navbar:
-  title: "Stavros's Website"
+  title: "Home"
   left:
     - text: "Projects"
       menu:
+        - text: "R"
         - text: "House Prices Seattle"
           href: Ind_Proj_Stavros_Tsentemeidis.html
+        - text: "Madrid Pollution"
+          href: Madrid_Pollution_Report.html
+        - text: "Stock Analysis EDA"
+          href: STOCKS_FINAL_ANALYSIS.html 
+        - text: "Airline Social Network Analysis"
+          href: Networks_Assigment.html
+        - text: "Bank Marketing"
+          href: bank_marketing.html 
+        - text: "Human Resources Analytics"
+          href: Individual_Assignment_HR.html 
+        - text: "Data Vizualization"
+          href: DataViz_Assignment.html
 
+        - text: "Spark"
+        - text: "Loan Status"
+          href: Spark_Loan_Status.html  
 
+        - text: "Python"
+        - text: "Bike Sharing Washington"
+          href: Bike_Sharing.html  
+        - text: "News Text Classification"
+          href: NLP_FINAL.html 
+    - text: "About Me"
+      href: about.html
+  right:
+    - icon: ion-social-twitter
+      href: https://twitter.com/STsentemeidis
+    - icon: ion-social-facebook
+      href: https://www.facebook.com/stavros.tsente
+    - icon: ion-social-linkedin
+      href: https://www.linkedin.com/in/stavros-tsentemeidis-244762133/
+    - icon: ion-social-github
+      href: https://github.com/stsentemeidis
+output:
+  html_document:
+    theme: darkly
+    css: style.css

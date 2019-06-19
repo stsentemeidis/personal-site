@@ -1,5 +1,32 @@
 ---
-title: "Stavro's Website"
+title: Stavros Personal Data Science Portfolio"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+
 ---
 
-Hello, World!
+</br></br></br>
+
+<div style= "float:left;position: relative; top: 50px;">
+<img src="43795966.jpeg" alt="drawing" width="350"/>
+</div>
+
+
+<div style= "float:right;position: relative; top: 80px;">
+<p style="text-align: left;"> <span style="color:#4491e2"> Name: </span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font size="4">Stavros Tsentemeidis </font><p> 
+<p style="text-align: left;"> <span style="color:#4491e2"> Birth Date: </span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font size="4"> 09/05/1996 </font><p>
+<p style="text-align: left;"><span style="color:#4491e2"> Country of Origin:</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font size="4"> Greece </font><p>
+<p style="text-align: left;"><span style="color:#4491e2"> Ocupation:</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font size="4"> Master Degree Student </font><p>
+<p style="text-align: left;"><span style="color:#4491e2"> Languages:</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font size="4"> Greek, English, Spanish </font><p>
+<p style="text-align: left;"><span style="color:#4491e2"> Hobbies: </span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font size="4"> Love solving puzzles and enjoy going to escape rooms. </font><p>
+</div>
+
+
+<div style= "float:left;position: relative; top: 180px; width: 1000px;">
+
+<p style="text-align: center;"><font size="4">I really love PUZZLES and I want to expand this love to the business problems and learn    
+how to solve them effectively through the Power of DATA & ANALYTICS.    
+I may not be a coding expert, but through my Master in IE i will SUCCESSFULLY gain deep knowledge in analytical tools like R, PYTHON and SPARK. My theoretical and practical experience through the program will be tested constantly, under DATATHONS and GROUP analytical projects based on KAGGLE competitions and CHALLENGES.     
+I excelled at the Greek National Exams and ranked 1st in my department. Became the leader of a SUCCESSFUL Marketing Team, leading them to a great performance (2nd overall) at the FSAE International competition.  </font> <p>
+
+</div>
+
