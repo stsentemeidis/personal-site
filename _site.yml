@@ -1,23 +1,11 @@
-name: "Furqan-website"
+name: "Stavros-website"
 output_dir: "."
 navbar:
-  title: "Furqan's Website"
+  title: "Stavros's Website"
   left:
     - text: "Projects"
       menu:
-        - text: "Recommendation Engine"
-          href: index.html
-        - text: "NLP - Text Classification"
-          href: NLP_Assignment.html
-        - text: "Python Project Part 1"
-          href: 1.EDA+Baseline.html
-        - text: "Python Project Part 2"
-          href: 2.Data_Preparation_and_Feature_Engineering.html
-        - text: "Python Project Part 3"
-          href: 3.Modeling_for_weekdays.html
-        - text: "Python Project Part 4"
-          href: 4.Modeling_for_weekends.html
-        - text: "Attrition Prediction"
-          href: Muhammad Furqan.html
-        - text: "Spark - Marketing Department's Data"
-          href: Lab10-Asignment2-Muhammad-Furqan.html
+        - text: "House Prices Seattle"
+          href: Ind_Proj_Stavros_Tsentemeidis.html
+
+
