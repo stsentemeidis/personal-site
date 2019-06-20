@@ -1,5 +1,5 @@
 ---
-title: Stavros Personal Data Science Portfolio"
+title: Stavros Personal Data Science Portfolio
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 
 ---
@@ -11,7 +11,7 @@ date: "`r format(Sys.time(), '%d %B, %Y')`"
 </div>
 
 
-<div style= "float:right;position: relative; top: 80px;">
+<div style= "float:right;position: relative; top: 120px;">
 <p style="text-align: left;"> <span style="color:#4491e2"> Name: </span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font size="4">Stavros Tsentemeidis </font><p> 
 <p style="text-align: left;"> <span style="color:#4491e2"> Birth Date: </span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font size="4"> 09/05/1996 </font><p>
 <p style="text-align: left;"><span style="color:#4491e2"> Country of Origin:</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font size="4"> Greece </font><p>
@@ -23,10 +23,12 @@ date: "`r format(Sys.time(), '%d %B, %Y')`"
 
 <div style= "float:left;position: relative; top: 180px; width: 1000px;">
 
-<p style="text-align: center;"><font size="4">I really love PUZZLES and I want to expand this love to the business problems and learn    
-how to solve them effectively through the Power of DATA & ANALYTICS.    
-I may not be a coding expert, but through my Master in IE i will SUCCESSFULLY gain deep knowledge in analytical tools like R, PYTHON and SPARK. My theoretical and practical experience through the program will be tested constantly, under DATATHONS and GROUP analytical projects based on KAGGLE competitions and CHALLENGES.     
-I excelled at the Greek National Exams and ranked 1st in my department. Became the leader of a SUCCESSFUL Marketing Team, leading them to a great performance (2nd overall) at the FSAE International competition.  </font> <p>
+<p style="text-align: left;"><font size="3.5">I really love <span style="color:#0ce3ac">puzzles</span> and I want to expand this love to the business problems and learn    
+how to solve them effectively through the <span style="color:#0ce3ac">power of Data & Analytics.</span>    
+I may not be a coding expert, but through my Master in IE i will succesfully gain <span style="color:#0ce3ac">deep knowledge</span> in analytical tools like <span style="color:#0ce3ac">R</span>, <span style="color:#0ce3ac">PYTHON</span> and <span style="color:#0ce3ac">SPARK.</span>       
+My theoretical and practical experience through the program will be tested constantly, under <span style="color:#0ce3ac">Datathons</span> and <span style="color:#0ce3ac">group analytical projects</span> based on <span style="color:#0ce3ac">kaggle</span> competitions and challenges.       
+I excelled at the <span style="color:#0ce3ac">Greek National Exams</span> and ranked 1st in my department.    
+Became the <span style="color:#0ce3ac">leader</span> of a successful Marketing Team, leading them to a great performance (2nd overall) at the FSAE <span style="color:#0ce3ac">International competition.</span>  </font> <p>
 
 </div>
 
