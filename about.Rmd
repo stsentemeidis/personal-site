@@ -1,18 +1,21 @@
----
-title: "Curriculum Vitae"
----
+</br>
 
 ## STAVROS TSENTEMEIDIS    
-Thessaloniki, Greece         
-(+30) 6978418403 | s.tsentemeidis@student.ie.edu       
+Thessaloniki, Greece    
+09/05/1996    
+(+30) 6978418403   
+s.tsentemeidis@student.ie.edu | stavros.tsentemeidis@gmail.com                
 
 </br> 
 
+<div style= "float:right;position: relative; top: -130px; right: -110px;">
+<form method="get" action="Stavros_Tsentemeidis_CV_IE.pdf">
+   <button type="submit" style="background-color:#272727"><span style="color:#0ce3ac">Download CV!</span></button>
+</form>
+</div>
 
 
-
-
-### <span style="color:#4491e2">PROFESSIONAL SUMMARY</span>
+### <span style="color:#0ce3ac">PROFESSIONAL SUMMARY</span>
 
 I excelled at the Greek National Exams and ranked 1st in my department. Became the <span style="color:#0ce3ac">leader</span>  of a successful Marketing Team, leading them to a great performance (2nd overall) at the FSAE International competition. I really love <span style="color:#0ce3ac">puzzles</span> and I want to expand this love to the business problems and <span style="color:#0ce3ac">learn how to solve</span> them effectively through the <span style="color:#0ce3ac">power of Data & Analytics</span>.
 
@@ -22,15 +25,16 @@ I excelled at the Greek National Exams and ranked 1st in my department. Became t
 
 
 
-### <span style="color:#4491e2">EDUCATION</span>  
+### <span style="color:#0ce3ac">EDUCATION</span>  
 
-###### <span style="color:#4491e2">IE BUSINESS SCHOOL &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MADRID, SPAIN &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; OCT. 2018 – JULY.2019</span>                 
+###### <span style="color:#0ce3ac">➤ &nbsp;&nbsp;&nbsp; IE BUSINESS SCHOOL &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MADRID, SPAIN &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; OCT. 2018 – JULY.2019</span>                 
 *Master’s in Business Analytics & Big Data (MBD)*      
 Knowledge acquired through the Master includes <span style="color:#0ce3ac">R, Python, Spark, Hadoop and SQL.</span>  There is also practical experience through Datathons and Enterprise Challenges (e.g. IBM Watson Challenge) organized by the IE University (HST).
 
 
+</br> 
 
-###### <span style="color:#4491e2">UNIVERSITY OF MACEDONIA &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; THESSALONIKI, GREECE &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SEPT. 2014 – JULY 2018</span>
+###### <span style="color:#0ce3ac">➤ &nbsp;&nbsp;&nbsp;UNIVERSITY OF MACEDONIA &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; THESSALONIKI, GREECE &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SEPT. 2014 – JULY 2018</span>
 
 Bachelor of Science, Business Administration                         				     	                       
 1st ranking in the entry scores among the students during the academic year 2014 – 2015.                                                     
@@ -44,10 +48,10 @@ Bachelor of Science, Business Administration
 
 
 
-### <span style="color:#4491e2">PROFESSIONAL EXPERIENCE</span>    
+### <span style="color:#0ce3ac">PROFESSIONAL EXPERIENCE</span>    
 
 
-###### <span style="color:#4491e2">BONDING BEYOND BORDERS &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MADRID, SPAIN &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FEB. 2019 – NOW</span>
+###### <span style="color:#0ce3ac">➤ &nbsp;&nbsp;&nbsp;BONDING BEYOND BORDERS &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MADRID, SPAIN &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FEB. 2019 – NOW</span>
 
 *Business Development Director*     	                             
 • Bonding Beyond Borders is a <span style="color:#0ce3ac">startup</span> on the <span style="color:#0ce3ac">educational sector</span>, focusing on helping the new generation broadening their horizon on the topic of <span style="color:#0ce3ac">diversity.</span> This is accomplished by assisting teachers discuss controversial <span style="color:#0ce3ac">social topics</span> (religion, immigrants, terrorism) with their students, in an interactive, fun and more comfortable way through our <span style="color:#0ce3ac">board game.</span>   
@@ -55,34 +59,35 @@ Bachelor of Science, Business Administration
 • Leading the <span style="color:#0ce3ac">business development</span> department of the company.        
 • Responsible for the <span style="color:#0ce3ac">expansion</span> of the business activities, as well as the development of <span style="color:#0ce3ac">pitches and presentations</span> for the different stakeholders, in order to bring them on board with our activities.     
 
+</br> 
 
-###### <span style="color:#4491e2">BLISS POINT PREMIUM FOOD PRODUCTS (ORIZONTES S.A) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; THESSALONIKI, GREECE &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SEP. 2017 – OCT.2018</span>
+###### <span style="color:#0ce3ac">➤ &nbsp;&nbsp;&nbsp; BLISS POINT PREMIUM FOOD PRODUCTS (ORIZONTES S.A) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; THESSALONIKI, GREECE &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SEP. 2017 – OCT.2018</span>
 
 *Assistant Brand Manager*     	                             
 • Developed part of the <span style="color:#0ce3ac">Point of Sale</span> material design and implementation.      
 • Responsible for the artwork implementation and the <span style="color:#0ce3ac">managing</span> of the social media communication.     
 • <span style="color:#0ce3ac">Participated</span> in Instore Consumer Testing events.      
 
+</br> 
 
-
-###### <span style="color:#4491e2">DEMOCRITUS RACING TEAM (N.G.O) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; XANTHE, GREECE &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; OCT.2015 – SEPT.2017</span>
+###### <span style="color:#0ce3ac">➤ &nbsp;&nbsp;&nbsp; DEMOCRITUS RACING TEAM (N.G.O) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; XANTHE, GREECE &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; OCT.2015 – SEPT.2017</span>
 
 *Marketing Manager*                                    
 •	<span style="color:#0ce3ac">Responsible</span> for the recruiting and managing of the team for 2 consecutive years, defining the roles and responsibilities.        
 •	<span style="color:#0ce3ac">Leaded</span> the design and implementation of the <span style="color:#0ce3ac">Business Plan</span> at the team’s participation in the FSAE <span style="color:#0ce3ac">International Competition</span> (2nd place overall among 14 teams).      
 
 
+</br> 
 
-
-###### <span style="color:#4491e2">AHOLD DELHAIZE – ALFA BETA VASSILOPOULOS S.A &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; THESSALONIKI, GREECE &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; JUL. 2016 – OCT. 2016</span>
+###### <span style="color:#0ce3ac">➤ &nbsp;&nbsp;&nbsp; AHOLD DELHAIZE – ALFA BETA VASSILOPOULOS S.A &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; THESSALONIKI, GREECE &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; JUL. 2016 – OCT. 2016</span>
   
 *Retail Corridor Assistant*                             		     				                                                 
 • Specialized at the liquor/soft drinks corridor.        
 • Responsible for organizing the stock, filling empty shelves and making suggestions for the improvement of the recently renovated store.  
 
+</br> 
 
-
-###### <span style="color:#4491e2">PLAISIO COMPUTERS A.E.B.E &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; THESSALONIKI, GREECE &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; JUN.2015</span>
+###### <span style="color:#0ce3ac">➤ &nbsp;&nbsp;&nbsp; PLAISIO COMPUTERS A.E.B.E &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; THESSALONIKI, GREECE &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; JUN.2015</span>
     
 *Trainee*                                                                                                               
 •	I participated in the whole educational procedure of the company (3x 8hr seminars) to work as a smartphone salesman.      
@@ -95,11 +100,11 @@ Bachelor of Science, Business Administration
 
 
 
-### <span style="color:#4491e2">LANGUAGES</span> 
+### <span style="color:#0ce3ac">LANGUAGES</span> 
 
-• English (Bilingual)      
-• Spanish (Fluent, daily use since 2018)   
-• Greek (Native)    
+• &nbsp;&nbsp;&nbsp; <span style="color:red">English</span> (Bilingual)      
+• &nbsp;&nbsp;&nbsp; <span style="color:#f6b511">Spanish</span> (Fluent, daily use since 2018)   
+• &nbsp;&nbsp;&nbsp; <span style="color:#83ceec">Greek</span> (Native)    
 
 </br>    
 
@@ -110,7 +115,7 @@ Bachelor of Science, Business Administration
 
 
 
-### <span style="color:#4491e2">OTHER INTERESTING INFORMATION</span>      
+### <span style="color:#0ce3ac">OTHER INTERESTING INFORMATION</span>      
 •	Volunteer for AIESEC (2014).       
 •	Volunteer for the Greek Red Cross – First Aid Courses for citizens (2016).         
 •	Google Certifications on Academy for Ads (Google <span style="color:#0ce3ac">Analytics</span> Individual Certification, AdWords <span style="color:#0ce3ac">Display</span> Certification, AdWords <span style="color:#0ce3ac">Search</span> Certification, AdWords <span style="color:#0ce3ac">Shopping</span> Certification, AdWords <span style="color:#0ce3ac">Video</span> Certification, <span style="color:#0ce3ac">Digital Sales</span> Certification, <span style="color:#0ce3ac">Mobile Sites</span> Certification, AdWords <span style="color:#0ce3ac">Fundamentals</span>, AdWords <span style="color:#0ce3ac">Mobile</span> Certification) (2018, 2019).   

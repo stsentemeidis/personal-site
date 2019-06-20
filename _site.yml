@@ -1,50 +1,56 @@
 name: "Stavros-website"
 output_dir: "."
 navbar:
-  title: "Home"
+  title: <font size="6" face="verdana"><span style="color:#0ce3ac">ST</span></font>
+  position: fixed
   left:
-    - text: "Projects"
+    - text: "My Projects"
       menu:
         - text: "R"
         - text: "House Prices Seattle"
-          href: projects/Ind_Proj_Stavros_Tsentemeidis.html
-        - text: "Madrid Pollution"
-          href: projects/Madrid_Pollution_Report.html
-        - text: "Stock Analysis EDA"
-          href: projects/STOCKS_FINAL_ANALYSIS.html 
-        - text: "Airline Social Network Analysis"
-          href: projects/Networks_Assigment.html
+          href: house_prices.html
         - text: "Bank Marketing"
-          href: projects/bank_marketing.html 
+          href: bank_marketing.html 
         - text: "Human Resources Analytics"
-          href: projects/Individual_Assignment_HR.html 
+          href: hr_analytics.html 
         - text: "Data Vizualization"
-          href: projects/DataViz_Assignment.html
+          href: data_viz.html
+        - text: "Airline Social Network Analysis"
+          href: social_network.html
         - text: "Recommendation Engine 1"
-          href: projects/RecEng_Group.html
+          href: receng_1.html
         - text: "Recommendation Engine 2"
-          href: projects/RecEng_Individual.html
+          href: receng_2.html
+        - text: "Madrid Pollution"
+          href: madrid_pollution.html
+        - text: "Stock Analysis EDA"
+          href: stock_analysis.html
 
         - text: "Spark"
         - text: "Loan Status"
-          href: projects/Spark_Loan_Status.html  
+          href: loan_status.html  
 
         - text: "Python"
         - text: "Bike Sharing Washington"
-          href: projects/Bike_Sharing.html  
+          href: bike_sharing.html  
         - text: "News Text Classification"
-          href: projects/NLP_FINAL.html 
+          href: nlp_news.html 
         - text: "Math Quiz"
-          href: projects/basic_funcs_Stavros_Tsentemeidis.html 
+          href: python_riddles.html
+    - text: "My Timeline"
+      href: timeline.html
     - text: "About Me"
       href: about.html
-    - text: "Contact"
+    - text: "Contact Me"
       href: contact.html
+  
   right:
     - icon: ion-social-twitter
       href: https://twitter.com/STsentemeidis
     - icon: ion-social-facebook
       href: https://www.facebook.com/stavros.tsente
+    - icon: ion-social-instagram
+      href: https://www.instagram.com/tsente_stav/
     - icon: ion-social-linkedin
       href: https://www.linkedin.com/in/stavros-tsentemeidis-244762133/
     - icon: ion-social-github
