@@ -7,31 +7,39 @@ navbar:
       menu:
         - text: "R"
         - text: "House Prices Seattle"
-          href: Ind_Proj_Stavros_Tsentemeidis.html
+          href: projects/Ind_Proj_Stavros_Tsentemeidis.html
         - text: "Madrid Pollution"
-          href: Madrid_Pollution_Report.html
+          href: projects/Madrid_Pollution_Report.html
         - text: "Stock Analysis EDA"
-          href: STOCKS_FINAL_ANALYSIS.html 
+          href: projects/STOCKS_FINAL_ANALYSIS.html 
         - text: "Airline Social Network Analysis"
-          href: Networks_Assigment.html
+          href: projects/Networks_Assigment.html
         - text: "Bank Marketing"
-          href: bank_marketing.html 
+          href: projects/bank_marketing.html 
         - text: "Human Resources Analytics"
-          href: Individual_Assignment_HR.html 
+          href: projects/Individual_Assignment_HR.html 
         - text: "Data Vizualization"
-          href: DataViz_Assignment.html
+          href: projects/DataViz_Assignment.html
+        - text: "Recommendation Engine 1"
+          href: projects/RecEng_Group.html
+        - text: "Recommendation Engine 2"
+          href: projects/RecEng_Individual.html
 
         - text: "Spark"
         - text: "Loan Status"
-          href: Spark_Loan_Status.html  
+          href: projects/Spark_Loan_Status.html  
 
         - text: "Python"
         - text: "Bike Sharing Washington"
-          href: Bike_Sharing.html  
+          href: projects/Bike_Sharing.html  
         - text: "News Text Classification"
-          href: NLP_FINAL.html 
+          href: projects/NLP_FINAL.html 
+        - text: "Math Quiz"
+          href: projects/basic_funcs_Stavros_Tsentemeidis.html 
     - text: "About Me"
       href: about.html
+    - text: "Contact"
+      href: contact.html
   right:
     - icon: ion-social-twitter
       href: https://twitter.com/STsentemeidis
