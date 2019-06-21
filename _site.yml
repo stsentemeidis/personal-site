@@ -8,41 +8,41 @@ navbar:
       menu:
         - text: "R"
         - text: "House Prices Seattle"
-          href: house_prices.html
+          href: site_files/house_prices.html
         - text: "Bank Marketing"
-          href: bank_marketing.html 
+          href: site_files/bank_marketing.html 
         - text: "Human Resources Analytics"
-          href: hr_analytics.html 
+          href: site_files/hr_analytics.html 
         - text: "Data Vizualization"
-          href: data_viz.html
+          href: site_files/data_viz.html
         - text: "Airline Social Network Analysis"
-          href: social_network.html
+          href: site_files/social_network.html
         - text: "Recommendation Engine 1"
-          href: receng_1.html
+          href: site_files/receng_1.html
         - text: "Recommendation Engine 2"
-          href: receng_2.html
+          href: site_files/receng_2.html
         - text: "Madrid Pollution"
-          href: madrid_pollution.html
+          href: site_files/madrid_pollution.html
         - text: "Stock Analysis EDA"
-          href: stock_analysis.html
+          href: site_files/stock_analysis.html
 
         - text: "Spark"
         - text: "Loan Status"
-          href: loan_status.html  
+          href: site_files/loan_status.html  
 
         - text: "Python"
         - text: "Bike Sharing Washington"
-          href: bike_sharing.html  
+          href: site_files/bike_sharing.html  
         - text: "News Text Classification"
-          href: nlp_news.html 
+          href: site_files/nlp_news.html 
         - text: "Math Quiz"
-          href: python_riddles.html
+          href: site_files/python_riddles.html
     - text: "My Timeline"
-      href: timeline.html
+      href: site_files/timeline.html
     - text: "About Me"
-      href: about.html
+      href: site_files/about.html
     - text: "Contact Me"
-      href: contact.html
+      href: site_files/contact.html
   
   right:
     - icon: ion-social-twitter
