@@ -1,4 +1,4 @@
 
 <div style= "float:right;position: relative; top: 50px; right: -70px">
-<iframe src="timeline_0.html" width="1000" height="1100"></iframe>
+<iframe src="timeline_0.html" width="1000" height="1100" frameborder="0"></iframe>
 </div>
