@@ -7,3 +7,5 @@ setwd("/Users/stavrostsentemeidis/Documents/GitHub/personal-site")
 #render your sweet site. 
 rmarkdown::render_site()
 
+
+
