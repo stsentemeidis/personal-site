@@ -8,7 +8,7 @@ date: "`r format(Sys.time(), '%d %B, %Y')`"
 
 
 <div style= "float:left;position: relative; top: 5px;">
-<img src="43795966.jpeg" alt="drawing" width="350"/>
+<img src="stsentemeidis_closeup.png" alt="drawing" width="300"/>
 </div>
 
 
