@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 
 
-<title>about.utf8.md</title>
+<title>about.utf8</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -23,6 +23,15 @@
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -69,6 +78,7 @@ h6 {
 }
 </style>
 
+
 <link rel="stylesheet" href="style.css" type="text/css" />
 
 
@@ -85,7 +95,6 @@ code {
 }
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -234,6 +243,7 @@ $(document).ready(function () {
   border: none;
   display: inline-block;
   border-radius: 4px;
+  background-color: transparent;
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
@@ -245,18 +255,6 @@ $(document).ready(function () {
   display: none;
 }
 </style>
-
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
 
 <!-- code folding -->
 
@@ -393,10 +391,10 @@ $(document).ready(function () {
 <p></br></p>
 <div id="stavros-tsentemeidis" class="section level2">
 <h2>STAVROS TSENTEMEIDIS</h2>
-<p>Thessaloniki, Greece<br />
+<p>Delemont, Switzerland<br />
 09/05/1996<br />
 (+30) 6978418403<br />
-<a href="mailto:s.tsentemeidis@student.ie.edu" class="email">s.tsentemeidis@student.ie.edu</a> | <a href="mailto:stavros.tsentemeidis@gmail.com" class="email">stavros.tsentemeidis@gmail.com</a></p>
+<a href="mailto:stsentemeidis@convertgroup.com" class="email">stsentemeidis@convertgroup.com</a> | <a href="mailto:s.tsentemeidis@student.ie.edu" class="email">s.tsentemeidis@student.ie.edu</a> | <a href="mailto:stavros.tsentemeidis@gmail.com" class="email">stavros.tsentemeidis@gmail.com</a></p>
 <p></br></p>
 <div style="float:right;position: relative; top: -130px; right: -110px;">
 <form method="get" action="Stavros_Tsentemeidis_CV_IE.pdf">
@@ -440,6 +438,21 @@ Bachelor of Science, Business Administration<br />
 </div>
 <div id="professional-experience" class="section level3">
 <h3><span style="color:#0ce3ac">PROFESSIONAL EXPERIENCE</span></h3>
+<div id="convert-group-athens-greece-jan.-2021-present" class="section level6">
+<h6><span style="color:#0ce3ac">➤     CONVERT GROUP       ATHENS, GREECE       JAN. 2021 – present </span></h6>
+<em>Junior Consumer Data Analyst</em><br />
+
+<p class="main">
+• Developed part of the <span style="color:#0ce3ac">Point of Sale</span> material design and implementation.
+</p>
+<p class="main">
+• Responsible for the artwork implementation and the <span style="color:#0ce3ac">managing</span> of the social media communication.
+</p>
+<p class="main">
+• <span style="color:#0ce3ac">Participated</span> in Instore Consumer Testing events.
+</p>
+<p></br></p>
+</div>
 <div id="bonding-beyond-borders-madrid-spain-feb.-2019-now" class="section level6">
 <h6><span style="color:#0ce3ac">➤    BONDING BEYOND BORDERS       MADRID, SPAIN       FEB. 2019 – NOW</span></h6>
 <em>Business Development Director</em><br />
@@ -538,7 +551,7 @@ Bachelor of Science, Business Administration<br />
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
@@ -546,6 +559,23 @@ $(document).ready(function () {
 
 
 </script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

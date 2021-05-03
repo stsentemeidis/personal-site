@@ -8,4 +8,4 @@ setwd("/Users/stavrostsentemeidis/Documents/GitHub/personal-site")
 rmarkdown::render_site()
 
 
-
+How did you come up with a process that was innovative? What were the results?  
